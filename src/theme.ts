@@ -1,30 +1,30 @@
-import { common } from "@mui/material/colors";
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { common } from '@mui/material/colors'
+import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
 const hStyle = {
-    fontFamily: "\"Roboto Slab\", serif",
-    lineHeight: 2
-};
+    fontFamily: '"Roboto Slab", serif',
+    lineHeight: 1.3
+}
 const baseTheme = createTheme({
     palette: {
-        mode: "dark",
+        mode: 'dark',
         background: {
-            default: "#313536",
-            paper: "#252829"
+            default: '#313536',
+            paper: '#252829'
         },
         primary: {
-            main: "#00E472"
+            main: '#00E472'
         },
         text: {
-            primary: "#ABAEB0",
+            primary: '#ABAEB0',
             secondary: common.white
         }
     },
     typography: {
         overline: {
-            fontWeight: "bold",
-            fontSize: "1.25rem",
-            letterSpacing: "0.13em"
+            fontWeight: 'bold',
+            fontSize: '1.25rem',
+            letterSpacing: '0.13em'
         },
         h1: hStyle,
         h2: hStyle,
@@ -33,11 +33,11 @@ const baseTheme = createTheme({
         h5: hStyle,
         h6: hStyle,
         body1: {
-            fontSize: "1.25rem",
+            fontSize: '1.25rem',
             lineHeight: 1.5
         }
     }
-});
+})
 
 const mergedTheme = createTheme(baseTheme, {
     typography: {
@@ -50,7 +50,7 @@ const mergedTheme = createTheme(baseTheme, {
         overline: { color: baseTheme.palette.primary.main }
     }
 }
-);
-const theme = responsiveFontSizes(mergedTheme);
+)
+const theme = responsiveFontSizes(mergedTheme)
 
-export default theme;
+export default theme
