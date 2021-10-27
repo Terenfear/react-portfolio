@@ -29,11 +29,14 @@
         "@typescript-eslint/explicit-function-return-type": "warn",
         "quotes": [
             "error",
-            "double"
+            "single", 
+            {
+                "avoidEscape": true
+            }
         ],
         "semi": [
             "error",
-            "always"
+            "never"
         ]
     },
     "settings": {
