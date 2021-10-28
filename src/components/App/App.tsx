@@ -1,9 +1,13 @@
 import React from 'react'
 import AboutMe from '../AboutMe/AboutMe'
+import Skills from '../Skills/Skills'
 
 const App = (): JSX.Element => {
     return (
-        <AboutMe />
+        <div>
+            <Skills />
+            <AboutMe />
+        </div>
     )
 }
 
