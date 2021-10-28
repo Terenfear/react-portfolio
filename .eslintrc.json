@@ -29,7 +29,7 @@
         "@typescript-eslint/explicit-function-return-type": "warn",
         "quotes": [
             "error",
-            "single", 
+            "single",
             {
                 "avoidEscape": true
             }
@@ -41,11 +41,13 @@
         "jsx-quotes": [
             "error",
             "prefer-single"
-        ]
+        ],
+        "no-trailing-spaces": "error",
+        "eol-last": "error"
     },
     "settings": {
-      "react": {
-        "version": "detect"
-      }
+        "react": {
+            "version": "detect"
+        }
     }
 }
