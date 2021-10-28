@@ -4,8 +4,8 @@ type AboutMeState = {
     profession: string,
     details: string,
     photoUrl: string,
-    photoAlt: string;
-};
+    photoAlt: string
+}
 
 const initialState: AboutMeState = {
     profession: 'Web Developer',

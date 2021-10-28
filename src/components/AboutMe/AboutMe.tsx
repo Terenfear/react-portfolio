@@ -38,13 +38,13 @@ const AboutMe = (): JSX.Element => {
                 alt={photoAlt}
             />
             <Box>
-                <Typography variant="overline" component="h2" mb={1}>About me</Typography>
-                <Typography variant="h2" component="h3" mb={3}>{profession}</Typography>
+                <Typography variant='overline' component='h2' mb={1}>About me</Typography>
+                <Typography variant='h2' component='h3' mb={3}>{profession}</Typography>
                 {
                     details.split('\n')
                         .filter(t => t.length > 0)
                         .map(chunkOfText => (
-                            <Typography variant="body1" paragraph>{chunkOfText}</Typography>
+                            <Typography variant='body1' paragraph>{chunkOfText}</Typography>
                         ))
                 }
             </Box>
