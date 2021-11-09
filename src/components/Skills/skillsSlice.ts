@@ -24,32 +24,32 @@ const initialState: SkillsState = {
     skillValues: [
         {
             name: 'Kotlin',
-            familiarityPercents: 0.8
+            familiarityPercents: 80
         },
         {
             name: 'JS/TS',
-            familiarityPercents: 0.45
+            familiarityPercents: 45
         },
         {
             name: 'Android',
-            familiarityPercents: 0.75
+            familiarityPercents: 75
         },
         {
             name: 'React',
-            familiarityPercents: 0.45
+            familiarityPercents: 45
         },
         {
             name: 'Redux',
-            familiarityPercents: 0.35
+            familiarityPercents: 35
         },
         {
             name: 'Material UI',
-            familiarityPercents: 0.4
+            familiarityPercents: 40
         }
     ]
 }
 
-export const skillsStateName = 'skills'
+const skillsStateName = 'skills'
 const skillsSlice = createSlice({
     name: skillsStateName,
     initialState,
@@ -63,6 +63,8 @@ type RootState = {
 
 const { reducer, actions } = skillsSlice
 export const { updateSkills } = actions
+export const skillsReducer = reducer
+export default { [skillsStateName]: skillsReducer }
 
 export const selectSkillInfo =
     (rootState: RootState): SkillsInfo => rootState.skills.skillsInfo
@@ -71,4 +73,3 @@ export const selectSkillValues = [
     _selectSkillValues,
     shallowEqual
 ] as const
-export default reducer
