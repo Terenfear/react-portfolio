@@ -10,12 +10,12 @@ const SkillItemList = (): JSX.Element => {
     const columnsCount = skills.length >= SKILL_COUNT_BREAKPOINT ? 3 : 2
     const items = useMemo(() => createGridItems(skills, columnsCount), [skills, columnsCount])
 
-    const mobileColumnTemplate = (theme: Theme) =>
+    const mobileColumnTemplate = (theme: Theme): string =>
         'repeat(' +
         `${columnsCount}, ` +
         'minmax(' +
-        `min(33%, ${minItemSize(theme)}), ` +
-        `${idealItemSize(theme)}` +
+        `min(33%, ${getMinItemSize(theme)}), ` +
+        `${getIdealItemSize(theme)}` +
         ')' +
         ')'
     const desktopColumnTemplate = `repeat(${columnsCount}, max-content)`
@@ -23,7 +23,7 @@ const SkillItemList = (): JSX.Element => {
         <Box sx={{
             display: 'grid',
             gridTemplateColumns: mobileColumnTemplate,
-            gap: itemGap,
+            gap: getItemGap,
             alignContent: 'center',
             alignItems: 'center',
             [theme.breakpoints.up('md')]: {
@@ -37,19 +37,21 @@ const SkillItemList = (): JSX.Element => {
 const GridItem = (props: { skill: Skill }): JSX.Element => {
     const theme = useTheme()
     const { name, familiarityPercents } = props.skill
-    return <SkillItem
-        label={name}
-        progress={familiarityPercents}
-        sx={{
+    return (
+        <Box sx={{
             width: '100%',
             height: '100%',
-            maxWidth: idealItemSize,
-            maxHeight: idealItemSize,
+            maxWidth: getIdealItemSize,
+            maxHeight: getIdealItemSize,
             [theme.breakpoints.up('md')]: {
-                width: idealItemSize,
-                height: idealItemSize,
+                width: getIdealItemSize,
+                height: getIdealItemSize,
             }
-        }} />
+        }}>
+            <SkillItem
+                label={name}
+                progress={familiarityPercents} />
+        </Box>)
 }
 
 const LastGridRow = (
@@ -67,7 +69,7 @@ const LastGridRow = (
             display: 'flex',
             justifyContent: 'center',
             gridColumn: `1 / span ${gridColumnsCount}`,
-            gap: itemGap
+            gap: getItemGap
         }}>
         {skillRow.map(s => <GridItem key={s.name} skill={s} />)}
     </Box>
@@ -100,8 +102,8 @@ const SKILL_COUNT_BREAKPOINT = 5
  */
 const ITEM_SIZE_SP = 16
 
-const idealItemSize = (theme: Theme) => theme.spacing(ITEM_SIZE_SP)
-const minItemSize = (theme: Theme) => theme.spacing(3)
-const itemGap = (theme: Theme) => theme.spacing(4)
+const getIdealItemSize = (theme: Theme): string => theme.spacing(ITEM_SIZE_SP)
+const getMinItemSize = (theme: Theme): string => theme.spacing(3)
+const getItemGap = (theme: Theme): string => theme.spacing(4)
 
 export default SkillItemList

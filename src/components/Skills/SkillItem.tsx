@@ -1,29 +1,35 @@
-import { BoxProps, useTheme } from '@mui/material'
-import React, { memo } from 'react'
-import CircularProgressWithLabel from '../CircularProgressWithLabel/CircularProgressWithLabel'
+import { CircularProgress, useTheme } from '@mui/material'
+import React, { memo, useMemo } from 'react'
+import withBackground from '../CircularProgressHOCs/withBackground'
+import withLabel from '../CircularProgressHOCs/withLabel'
+import withSvgProperties from '../CircularProgressHOCs/withSvgProperties'
 
-interface SkillItemProps extends BoxProps {
+interface SkillItemProps {
     label: string,
     progress: number
 }
 
+const CircularProgressWithRoundCaps = withSvgProperties({ strokeLinecap: 'round' })(CircularProgress)
+
 const SkillItem = (props: SkillItemProps): JSX.Element => {
     const theme = useTheme()
-    const { label, progress, ...boxProps } = props
+    const { label, progress } = props
+
+    const progressBgColor = theme.palette.primary.contrastText
+    const CircularProgressWithBackground = useMemo(
+        () => withBackground(progressBgColor)(CircularProgressWithRoundCaps),
+        [progressBgColor]
+    )
+    const CircularProgressWithLabel = useMemo(
+        () => withLabel(label)(CircularProgressWithBackground),
+        [label, CircularProgressWithBackground]
+    )
+
     return (
         <CircularProgressWithLabel
-            {...boxProps}
-            circularProgressProps={{
-                variant: 'determinate',
-                value: progress,
-                size: '100%',
-                sx: {
-                    maxWidth: theme.spacing(16),
-                    maxHeight: theme.spacing(16)
-                }
-            }}
-            label={label}
-            progressBackgroundColor={theme.palette.primary.contrastText} />
+            variant='determinate'
+            size='100%'
+            value={progress} />
     )
 }
 
