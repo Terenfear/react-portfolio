@@ -12,14 +12,10 @@ const Skills = (): JSX.Element => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: 4,
-        px: 4,
-        py: 4,
         [theme.breakpoints.up('md')]: {
             flexDirection: 'row-reverse',
             justifyContent: 'flex-end',
             gap: 8,
-            px: 8,
-            py: 16
         },
     } as const
     const { info, title } = useSelector(selectSkillInfo)
