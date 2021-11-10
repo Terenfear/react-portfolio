@@ -5,7 +5,7 @@ import {
 } from '@mui/material'
 import { Property } from 'csstype'
 import React from 'react'
-import { getDisplayName } from '../../reactUtils'
+import { getDisplayName } from '../../utils/reactUtils'
 
 const withBackground =
     (progressBackgroundColor?: Property.Color) =>

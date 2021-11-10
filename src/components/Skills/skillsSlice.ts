@@ -18,8 +18,6 @@ const initialState: SkillsState = {
     skillsInfo: {
         title: 'I am a developer and blah-blah-blah',
         info: 'Dolor irure et amet voluptate deserunt. Cupidatat tempor amet sunt qui anim occaecat do cillum laboris magna in nisi voluptate minim. Amet irure non ut fugiat deserunt. Sunt elit laboris id incididunt consequat id. Magna anim exercitation qui excepteur dolore. Sunt ut esse adipisicing voluptate velit cupidatat ex consequat. Aute nisi irure id ad est culpa fugiat ad ex aute sunt voluptate reprehenderit consectetur.'
-        // title: 'f',
-        // info: 'b'
     },
     skillValues: [
         {

@@ -5,7 +5,7 @@ import {
 } from '@mui/material'
 import { SxProps } from '@mui/system'
 import React from 'react'
-import { getDisplayName } from '../../reactUtils'
+import { getDisplayName } from '../../utils/reactUtils'
 
 const svgCircleClass = `.${circularProgressClasses.circle}`
 

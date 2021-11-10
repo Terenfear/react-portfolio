@@ -6,7 +6,7 @@ import {
     useTheme
 } from '@mui/material'
 import React, { useMemo } from 'react'
-import { getDisplayName } from '../../reactUtils'
+import { getDisplayName } from '../../utils/reactUtils'
 
 const withLabel =
     (label: string) =>
@@ -42,7 +42,7 @@ const withLabel =
                                     color: theme.typography.h1.color,
                                     fontSize: '0.8rem',
                                     lineHeight: '1.8rem',
-                                    [theme.breakpoints.up('md')]: {
+                                    [theme.breakpoints.up('sm')]: {
                                         fontSize: '1.25rem'
                                     }
                                 }}>
