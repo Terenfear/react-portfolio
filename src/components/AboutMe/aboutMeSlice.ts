@@ -16,16 +16,22 @@ const initialState: AboutMeState = {
     photoAlt: 'Author'
 }
 
+const aboutMeStateName = 'aboutMe'
 const aboutMeSlice = createSlice({
-    name: 'aboutMe',
+    name: aboutMeStateName,
     initialState,
     reducers: {
         updateAboutMe: (_, action: PayloadAction<AboutMeState>) => action.payload
     }
 })
+type RootState = {
+    [aboutMeStateName]: AboutMeState
+}
 
 const { actions, reducer } = aboutMeSlice
 export const { updateAboutMe } = actions
+export const aboutMeReducer = reducer
 export const selectAboutMe =
-    (rootState: { [aboutMeSlice.name]: AboutMeState; }): AboutMeState => rootState.aboutMe
-export default reducer
+    (rootState: RootState): AboutMeState => rootState.aboutMe
+
+export default { [aboutMeStateName]: aboutMeReducer }

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import aboutMeReducer from './components/AboutMe/aboutMeSlice'
+import aboutMeNamedReducer from './components/AboutMe/aboutMeSlice'
+import skillsNamedReducer from './components/Skills/skillsSlice'
 
 const rootReducer = combineReducers({
-    aboutMe: aboutMeReducer
+    ...aboutMeNamedReducer,
+    ...skillsNamedReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>;

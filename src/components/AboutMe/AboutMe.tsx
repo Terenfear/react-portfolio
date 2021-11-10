@@ -13,20 +13,19 @@ const AboutMe = (): JSX.Element => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: 4,
-        px: 8,
-        py: 4,
         [theme.breakpoints.up('md')]: {
             flexDirection: 'row',
             gap: 8,
-            py: 16
         }
     } as const
     const imgStyle = {
         objectFit: 'contain',
+        minWidth: 0,
         width: '100%',
         height: '100%',
         maxWidth: theme.spacing(60),
-        maxHeight: theme.spacing(60)
+        maxHeight: theme.spacing(60),
+        flex: '1 1 33%'
     } as const
 
     const { profession, details, photoUrl, photoAlt } = useSelector(selectAboutMe)
@@ -37,7 +36,7 @@ const AboutMe = (): JSX.Element => {
                 src={photoUrl}
                 alt={photoAlt}
             />
-            <Box>
+            <Box sx={{flex: '1 1 66%'}}>
                 <Typography variant='overline' component='h2' mb={1}>About me</Typography>
                 <Typography variant='h2' component='h3' mb={3}>{profession}</Typography>
                 {
