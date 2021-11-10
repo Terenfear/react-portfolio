@@ -1,5 +1,6 @@
 import { Box, Theme, useTheme } from '@mui/material'
 import React, { useMemo } from 'react'
+import { useInView } from 'react-intersection-observer'
 import { useSelector } from 'react-redux'
 import SkillItem from './SkillItem'
 import { selectSkillValues, Skill } from './skillsSlice'
@@ -36,6 +37,7 @@ const SkillItemList = (): JSX.Element => {
 }
 const GridItem = (props: { skill: Skill }): JSX.Element => {
     const theme = useTheme()
+    const { ref, inView } = useInView({ threshold: 0.5 })
     const { name, familiarityPercents } = props.skill
     return (
         <Box sx={{
@@ -47,10 +49,11 @@ const GridItem = (props: { skill: Skill }): JSX.Element => {
                 width: getIdealItemSize,
                 height: getIdealItemSize,
             }
-        }}>
+        }}
+            ref={ref}>
             <SkillItem
                 label={name}
-                progress={familiarityPercents} />
+                progress={inView ? familiarityPercents : 0} />
         </Box>)
 }
 

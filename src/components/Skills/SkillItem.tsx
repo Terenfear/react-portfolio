@@ -2,14 +2,15 @@ import { CircularProgress, useTheme } from '@mui/material'
 import React, { memo, useMemo } from 'react'
 import withBackground from '../CircularProgressHOCs/withBackground'
 import withLabel from '../CircularProgressHOCs/withLabel'
-import withSvgProperties from '../CircularProgressHOCs/withSvgProperties'
+import withStyledSvg from '../CircularProgressHOCs/withStyledSvg'
 
 interface SkillItemProps {
     label: string,
     progress: number
 }
 
-const CircularProgressWithRoundCaps = withSvgProperties({ strokeLinecap: 'round' })(CircularProgress)
+const CircularProgressLongAnimation = withStyledSvg({ transitionDuration: '1000ms' })(CircularProgress)
+const CircularProgressWithRoundCaps = withStyledSvg({ strokeLinecap: 'round' })(CircularProgressLongAnimation)
 
 const SkillItem = (props: SkillItemProps): JSX.Element => {
     const theme = useTheme()

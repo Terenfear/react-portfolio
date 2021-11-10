@@ -6,7 +6,7 @@ import {
     useTheme
 } from '@mui/material'
 import React, { useMemo } from 'react'
-import { getDisplayName } from '../../utils'
+import { getDisplayName } from '../../reactUtils'
 
 const withLabel =
     (label: string) =>
