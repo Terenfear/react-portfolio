@@ -1,17 +1,22 @@
+import { Box, useTheme } from '@mui/material'
 import React from 'react'
 
 
 const PortfolioItem = ({ children }: React.PropsWithChildren<unknown>): JSX.Element => {
+    const theme = useTheme()
     return (
-        <div style={{
+        <Box sx={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(1rem, 1fr) minmax(auto, 4fr) minmax(1rem, 1fr)',
-            gap: '1rem'
+            gap: '1rem',
+            gridTemplateColumns: 'minmax(1rem, 5fr) minmax(auto, 90fr) minmax(1rem, 5fr)',
+            [theme.breakpoints.up('md')]: {
+                gridTemplateColumns: 'minmax(1rem, 1fr) minmax(auto, 4fr) minmax(1rem, 1fr)',
+            }
         }}>
             <div />
             {children}
             <div />
-        </div>
+        </Box>
     )
 }
 
