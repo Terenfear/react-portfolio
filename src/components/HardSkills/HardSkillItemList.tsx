@@ -3,11 +3,11 @@ import React, { useMemo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useSelector } from 'react-redux'
 import useIsMobile from '../../utils/useIsMobile'
-import SkillItem from './SkillItem'
-import { selectSkillValues, Skill } from './skillsSlice'
+import HardSkillItem from './HardSkillItem'
+import { selectHardSkillValues, HardSkill } from './hardSkillsSlice'
 
-const SkillItemList = (props: BoxProps): JSX.Element => {
-    const skills = useSelector(...selectSkillValues)
+const HardSkillItemList = (props: BoxProps): JSX.Element => {
+    const skills = useSelector(...selectHardSkillValues)
     const isMobile = useIsMobile()
     const columnsCount = isMobile ?
         skills.length >= SKILL_COUNT_BREAKPOINT ? 3 : 2
@@ -29,25 +29,25 @@ const SkillItemList = (props: BoxProps): JSX.Element => {
         </Box>
     )
 }
-const GridItem = (props: { skill: Skill, showProgress: boolean } & BoxProps): JSX.Element => {
+const GridItem = (props: { skill: HardSkill, showProgress: boolean } & BoxProps): JSX.Element => {
     const { skill: { name, familiarityPercents }, showProgress, ...boxProps } = props
     return (
         <Box {...boxProps}>
-            <SkillItem
+            <HardSkillItem
                 label={name}
                 progress={showProgress ? familiarityPercents : 0} />
         </Box>)
 }
 
 const LastGridRow = (props: {
-    skillRow: Skill[],
+    skillRow: HardSkill[],
     gridColumnCount: number,
     showProgress: boolean
 }): JSX.Element => {
     const { skillRow, gridColumnCount, showProgress } = props
     const emptyCellCount = gridColumnCount - skillRow.length
     if (emptyCellCount < 0) {
-        throw new Error(`Skill count can't be lower than column count: ${skillRow.length} < ${gridColumnCount}`)
+        throw new Error(`HardSkill count can't be lower than column count: ${skillRow.length} < ${gridColumnCount}`)
     }
     const getTranslateX = (theme: Theme): string => {
         const emptySpaceFraction = emptyCellCount / gridColumnCount / 2
@@ -75,7 +75,7 @@ const LastGridRow = (props: {
 }
 
 const createGridItems = (
-    skills: Skill[],
+    skills: HardSkill[],
     columnsCount: number,
     showProgress: boolean
 ): JSX.Element[] => {
@@ -109,4 +109,4 @@ const SKILL_COUNT_BREAKPOINT = 5
 const ITEM_GAP_SPACING = 4
 const getItemGap = (theme: Theme): string => theme.spacing(ITEM_GAP_SPACING)
 
-export default SkillItemList
+export default HardSkillItemList

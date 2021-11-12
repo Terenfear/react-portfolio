@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 import aboutMeNamedReducer from './components/AboutMe/aboutMeSlice'
-import skillsNamedReducer from './components/Skills/skillsSlice'
+import hardSkillsNamedReducer from './components/HardSkills/hardSkillsSlice'
 import experienceNamedReducer from './components/Experience/experienceSlice'
 
 const rootReducer = combineReducers({
     ...aboutMeNamedReducer,
-    ...skillsNamedReducer,
+    ...hardSkillsNamedReducer,
     ...experienceNamedReducer
 })
 

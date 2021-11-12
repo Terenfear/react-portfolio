@@ -4,7 +4,7 @@ import withBackground from '../CircularProgressHOCs/withBackground'
 import withLabel from '../CircularProgressHOCs/withLabel'
 import withStyledSvg from '../CircularProgressHOCs/withStyledSvg'
 
-interface SkillItemProps {
+interface HardSkillItemProps {
     label: string,
     progress: number
 }
@@ -12,7 +12,7 @@ interface SkillItemProps {
 const CircularProgressLongAnimation = withStyledSvg({ transitionDuration: '1000ms' })(CircularProgress)
 const CircularProgressWithRoundCaps = withStyledSvg({ strokeLinecap: 'round' })(CircularProgressLongAnimation)
 
-const SkillItem = (props: SkillItemProps): JSX.Element => {
+const HardSkillItem = (props: HardSkillItemProps): JSX.Element => {
     const theme = useTheme()
     const { label, progress } = props
 
@@ -34,4 +34,4 @@ const SkillItem = (props: SkillItemProps): JSX.Element => {
     )
 }
 
-export default memo(SkillItem)
+export default memo(HardSkillItem)
