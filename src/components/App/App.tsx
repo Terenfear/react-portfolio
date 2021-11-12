@@ -1,6 +1,7 @@
 import { Box } from '@mui/system'
 import React from 'react'
 import AboutMe from '../AboutMe/AboutMe'
+import Experience from '../Experience/Experience'
 import PortfolioItem from '../PortfolioItem/PortfolioItem'
 import Skills from '../Skills/Skills'
 
@@ -19,6 +20,9 @@ const App = (): JSX.Element => {
             </PortfolioItem>
             <PortfolioItem>
                 <Skills />
+            </PortfolioItem>
+            <PortfolioItem>
+                <Experience />
             </PortfolioItem>
         </Box>
     )
