@@ -12,9 +12,11 @@ const SkillItemList = (props: BoxProps): JSX.Element => {
     const columnsCount = isMobile ?
         skills.length >= SKILL_COUNT_BREAKPOINT ? 3 : 2
         : 2
-    const items = useMemo(() => createGridItems(skills, columnsCount), [skills, columnsCount])
+    const { ref, inView } = useInView({ threshold: 0.33 })
+    const items = useMemo(() => createGridItems(skills, columnsCount, inView), [skills, columnsCount, inView])
     return (
         <Box {...props}
+            ref={ref}
             sx={{
                 ...props.sx,
                 display: 'grid',
@@ -27,20 +29,22 @@ const SkillItemList = (props: BoxProps): JSX.Element => {
         </Box>
     )
 }
-const GridItem = (props: { skill: Skill } & BoxProps): JSX.Element => {
-    const { ref, inView } = useInView({ threshold: 0.5 })
-    const { skill: { name, familiarityPercents }, ...boxProps } = props
+const GridItem = (props: { skill: Skill, showProgress: boolean } & BoxProps): JSX.Element => {
+    const { skill: { name, familiarityPercents }, showProgress, ...boxProps } = props
     return (
-        <Box {...boxProps}
-            ref={ref}>
+        <Box {...boxProps}>
             <SkillItem
                 label={name}
-                progress={inView ? familiarityPercents : 0} />
+                progress={showProgress ? familiarityPercents : 0} />
         </Box>)
 }
 
-const LastGridRow = (props: { skillRow: Skill[], gridColumnCount: number }): JSX.Element => {
-    const { skillRow, gridColumnCount } = props
+const LastGridRow = (props: {
+    skillRow: Skill[],
+    gridColumnCount: number,
+    showProgress: boolean
+}): JSX.Element => {
+    const { skillRow, gridColumnCount, showProgress } = props
     const emptyCellCount = gridColumnCount - skillRow.length
     if (emptyCellCount < 0) {
         throw new Error(`Skill count can't be lower than column count: ${skillRow.length} < ${gridColumnCount}`)
@@ -63,25 +67,34 @@ const LastGridRow = (props: { skillRow: Skill[], gridColumnCount: number }): JSX
             alignItems: 'center',
             transform: getTranslateX
         }}>
-            {skillRow.map(s => <GridItem key={s.name} skill={s} />)}
+            {skillRow.map(s =>
+                <GridItem key={s.name} skill={s} showProgress={showProgress} />
+            )}
         </Box>
     </Box>
 }
 
-const createGridItems = (skills: Skill[], columnsCount: number): JSX.Element[] => {
+const createGridItems = (
+    skills: Skill[],
+    columnsCount: number,
+    showProgress: boolean
+): JSX.Element[] => {
     const lastRowLength = skills.length % columnsCount
     let result: JSX.Element[]
     if (lastRowLength > 0) {
         // using `slice` to make the whole function pure
         result = skills.slice(0, -lastRowLength) // all but the last row items
-            .map(s => <GridItem key={s.name} skill={s} />)
+            .map(s => <GridItem key={s.name} skill={s} showProgress={showProgress} />)
         result.push(
             <LastGridRow
                 skillRow={skills.slice(-lastRowLength)}  // only the last row items
-                gridColumnCount={columnsCount} />
+                gridColumnCount={columnsCount}
+                showProgress={showProgress} />
         )
     } else {
-        result = skills.map(s => <GridItem key={s.name} skill={s} />)
+        result = skills.map(s =>
+            <GridItem key={s.name} skill={s} showProgress={showProgress} />
+        )
     }
     return result
 }
