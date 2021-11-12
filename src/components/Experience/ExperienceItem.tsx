@@ -17,17 +17,28 @@ const ExperienceItem = (props: ExperiencePeriod): JSX.Element => {
             columnGap: (t) => t.spacing(2)
         }}>
             <TimelineDot style={{ gridArea: DOT }} />
-            <Typography style={{ gridArea: PERIOD }}>
+            <Typography sx={{
+                gridArea: PERIOD,
+                color: 'primary.main'
+            }}>
                 {`${period.from} - ${period.to}`}
             </Typography>
-            <Connector style={{gridArea: CONNECTOR}} />
-            <div style={{ gridArea: DESCRIPTION }}>
+            <Connector style={{ gridArea: CONNECTOR }} />
+            <Box style={{ gridArea: DESCRIPTION }} mb={3} mt={1}>
                 {link ?
-                    <Link variant='h3' href={link}>{title}</Link> :
-                    <Typography variant='h3'>{title}</Typography>
+                    <Link variant='h4'
+                        color='text.secondary'
+                        role='heading'
+                        aria-level={4}
+                        mb={2}
+                        display='block'
+                        href={link}>
+                        {title}
+                    </Link> :
+                    <Typography variant='h4' mb={2}>{title}</Typography>
                 }
-                <Typography variant='body2'>{description}</Typography>
-            </div>
+                <Typography variant='subtitle1'>{description}</Typography>
+            </Box>
         </Box>
     )
 }

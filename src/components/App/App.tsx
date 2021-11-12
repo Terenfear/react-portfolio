@@ -16,13 +16,13 @@ const App = (): JSX.Element => {
             }
         }}>
             <PortfolioItem>
-                <Experience />
-            </PortfolioItem>
-            <PortfolioItem>
                 <AboutMe />
             </PortfolioItem>
             <PortfolioItem>
                 <Skills />
+            </PortfolioItem>
+            <PortfolioItem>
+                <Experience />
             </PortfolioItem>
         </Box>
     )

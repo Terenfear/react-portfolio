@@ -8,8 +8,8 @@ const Experience = (): JSX.Element => {
     const title = useSelector(selectExperienceTitle)
     return (
         <div>
-            <Typography>More about me</Typography>
-            <Typography variant='h2'>{title}</Typography>
+            <Typography variant='overline' component='h2' mb={1}>More about me</Typography>
+            <Typography variant='h2' component='h3' mb={4}>{title}</Typography>
             <ExperienceTimeline />
         </div>
     )
