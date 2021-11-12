@@ -16,8 +16,8 @@ const Experience = (): JSX.Element => {
                 alt={photoAlt}
             />
             <div style={{ flex: '1 1 66%' }}>
-                <Typography variant='overline' component='h2' mb={1}>More about me</Typography>
-                <Typography variant='h2' component='h3' mb={4}>{title}</Typography>
+                <Typography variant='h2' mb={1}>More about me</Typography>
+                <Typography variant='h3' mb={4}>{title}</Typography>
                 <ExperienceTimeline />
             </div>
         </PortfolioSimpleContainer>

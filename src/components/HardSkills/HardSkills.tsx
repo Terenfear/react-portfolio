@@ -23,7 +23,7 @@ const HardSkills = (): JSX.Element => {
         <Box sx={containerStyle}>
             <HardSkillItemList flex='1 1 33%' width='100%' />
             <Box flex='1 1 66%'>
-                <Typography variant='h2' mb={3}>{title}</Typography>
+                <Typography variant='h3' mb={3}>{title}</Typography>
                 {
                     info.split('\n')
                         .filter(t => t.length > 0)
