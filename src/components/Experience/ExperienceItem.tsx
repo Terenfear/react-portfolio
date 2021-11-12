@@ -3,8 +3,8 @@ import React from 'react'
 import { ExperiencePeriod } from './experienceSlice'
 import { ReactComponent as TimelineDot } from './timeline-dot.svg'
 
-const ExperienceItem = (props: ExperiencePeriod): JSX.Element => {
-    const { period, title, link, description } = props
+const ExperienceItem = (props: ExperiencePeriod & { isLast: boolean }): JSX.Element => {
+    const { period, title, link, description, isLast } = props
     return (
         <Box sx={{
             display: 'grid',
@@ -24,7 +24,9 @@ const ExperienceItem = (props: ExperiencePeriod): JSX.Element => {
                 {`${period.from} - ${period.to}`}
             </Typography>
             <Connector style={{ gridArea: CONNECTOR }} />
-            <Box style={{ gridArea: DESCRIPTION }} mb={3} mt={1}>
+            <Box style={{ gridArea: DESCRIPTION }}
+                mb={isLast ? 0 : 3}
+                mt={1}>
                 {link ?
                     <Link variant='h4'
                         color='text.secondary'

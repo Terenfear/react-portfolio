@@ -1,42 +1,21 @@
 /* eslint-disable react/jsx-key */
-import { Typography } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import { Box } from '@mui/system'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import PortfolioPhoto from '../PortfolioPhoto/PortfolioPhoto'
+import PortfolioSimpleContainer from '../PortfolioSimpleContainer/PortfolioSimpleContainer'
 import { selectAboutMe } from './aboutMeSlice'
 
 const AboutMe = (): JSX.Element => {
-    const theme = useTheme()
-    const containerStyle = {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 4,
-        [theme.breakpoints.up('md')]: {
-            flexDirection: 'row',
-            gap: 8,
-        }
-    } as const
-    const imgStyle = {
-        objectFit: 'contain',
-        minWidth: 0,
-        width: '100%',
-        height: '100%',
-        maxWidth: theme.spacing(60),
-        maxHeight: theme.spacing(60),
-        flex: '1 1 33%'
-    } as const
-
     const { profession, details, photoUrl, photoAlt } = useSelector(selectAboutMe)
     return (
-        <Box sx={containerStyle}>
-            <img
-                style={imgStyle}
+        <PortfolioSimpleContainer>
+            <PortfolioPhoto
+                style={{ flex: '1 1 33%' }}
                 src={photoUrl}
                 alt={photoAlt}
             />
-            <Box sx={{flex: '1 1 66%'}}>
+            <Box sx={{ flex: '1 1 66%' }}>
                 <Typography variant='overline' component='h2' mb={1}>About me</Typography>
                 <Typography variant='h2' component='h3' mb={3}>{profession}</Typography>
                 {
@@ -47,7 +26,7 @@ const AboutMe = (): JSX.Element => {
                         ))
                 }
             </Box>
-        </Box >
+        </PortfolioSimpleContainer >
     )
 }
 

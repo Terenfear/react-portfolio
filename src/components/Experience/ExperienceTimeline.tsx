@@ -8,7 +8,11 @@ const ExperienceTimeline = (props: BoxProps): JSX.Element => {
     const periods = useSelector(...selectExperiencePeriods)
     return (
         <Box {...props}>
-            {periods.map(p => <ExperienceItem key={p.id} {...p} />)}
+            {periods.map((p, i) =>
+                <ExperienceItem {...p}
+                    key={p.id}
+                    isLast={i == periods.length - 1} />
+            )}
         </Box>
     )
 }

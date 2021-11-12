@@ -1,14 +1,14 @@
-import { Box, BoxProps, Theme, useMediaQuery, useTheme } from '@mui/material'
+import { Box, BoxProps, Theme } from '@mui/material'
 import React, { useMemo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useSelector } from 'react-redux'
+import useIsMobile from '../../utils/useIsMobile'
 import SkillItem from './SkillItem'
 import { selectSkillValues, Skill } from './skillsSlice'
 
 const SkillItemList = (props: BoxProps): JSX.Element => {
     const skills = useSelector(...selectSkillValues)
-    const theme = useTheme()
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'), { noSsr: true })
+    const isMobile = useIsMobile()
     const columnsCount = isMobile ?
         skills.length >= SKILL_COUNT_BREAKPOINT ? 3 : 2
         : 2

@@ -11,13 +11,22 @@ export type ExperiencePeriod = {
     link?: string,
     description: string
 }
-export type ExperienceState = {
+export type ExperienceInfo = {
     title: string,
+    photoUrl: string,
+    photoAlt: string,
+}
+export type ExperienceState = {
+    info: ExperienceInfo,
     periods: ExperiencePeriod[]
 }
 
 const initialState: ExperienceState = {
-    title: 'Education & Experience',
+    info: {
+        title: 'Education & Experience',
+        photoUrl: 'https://i1.sndcdn.com/avatars-000288873036-ix0cdf-t500x500.jpg',
+        photoAlt: "Hackerman, though it's not me"
+    },
     periods: [
         {
             id: '6b701b02-7d2f-4c51-b687-e9a7edcdeda1',
@@ -68,8 +77,8 @@ export const { updateExperience } = actions
 export const experienceReducer = reducer
 export default { [experienceStateName]: experienceReducer }
 
-export const selectExperienceTitle =
-    (rootState: RootState): string => rootState.experience.title
+export const selectExperienceInfo =
+    (rootState: RootState): ExperienceInfo => rootState.experience.info
 const _selectExperiencePeriods = (rootState: RootState): ExperiencePeriod[] => rootState.experience.periods
 export const selectExperiencePeriods = [
     _selectExperiencePeriods,
