@@ -5,8 +5,10 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './components/App/App'
 import reportWebVitals from './reportWebVitals'
-import store from './store'
+import configureAppStore from './store'
 import theme from './theme'
+
+const store = configureAppStore()
 
 ReactDOM.render(
   <Provider store={store}>
