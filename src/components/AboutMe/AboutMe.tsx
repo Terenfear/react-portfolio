@@ -16,8 +16,8 @@ const AboutMe = (): JSX.Element => {
                 alt={photoAlt}
             />
             <Box sx={{ flex: '1 1 66%' }}>
-                <Typography variant='overline' component='h2' mb={1}>About me</Typography>
-                <Typography variant='h2' component='h3' mb={3}>{profession}</Typography>
+                <Typography variant='h2'mb={1}>About me</Typography>
+                <Typography variant='h3' mb={3}>{profession}</Typography>
                 {
                     details.split('\n')
                         .filter(t => t.length > 0)

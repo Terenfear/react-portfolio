@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 import aboutMeNamedReducer from './components/AboutMe/aboutMeSlice'
-import skillsNamedReducer from './components/Skills/skillsSlice'
+import hardSkillsNamedReducer from './components/HardSkills/hardSkillsSlice'
 import experienceNamedReducer from './components/Experience/experienceSlice'
+import softSkillsNamedReducer from './components/SoftSkills/softSkillsSlice'
 
 const rootReducer = combineReducers({
     ...aboutMeNamedReducer,
-    ...skillsNamedReducer,
-    ...experienceNamedReducer
+    ...hardSkillsNamedReducer,
+    ...experienceNamedReducer,
+    ...softSkillsNamedReducer
 })
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -3,7 +3,8 @@ import React from 'react'
 import AboutMe from '../AboutMe/AboutMe'
 import Experience from '../Experience/Experience'
 import PortfolioItem from '../PortfolioItem/PortfolioItem'
-import Skills from '../Skills/Skills'
+import HardSkills from '../HardSkills/HardSkills'
+import SoftSkills from '../SoftSkills/SoftSkills'
 
 const App = (): JSX.Element => {
     return (
@@ -16,10 +17,13 @@ const App = (): JSX.Element => {
             }
         }}>
             <PortfolioItem>
+                <SoftSkills />
+            </PortfolioItem>
+            <PortfolioItem>
                 <AboutMe />
             </PortfolioItem>
             <PortfolioItem>
-                <Skills />
+                <HardSkills />
             </PortfolioItem>
             <PortfolioItem>
                 <Experience />

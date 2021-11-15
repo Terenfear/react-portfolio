@@ -1,25 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { shallowEqual } from 'react-redux'
 
-export type Skill = {
+export type HardSkill = {
     name: string,
     familiarityPercents: number
 }
-export type SkillsInfo = {
+export type HardSkillsInfo = {
     title: string,
     info: string
 }
-export type SkillsState = {
-    skillsInfo: SkillsInfo,
-    skillValues: Skill[]
+export type HardSkillsState = {
+    hardSkillsInfo: HardSkillsInfo,
+    hardSkillValues: HardSkill[]
 }
 
-const initialState: SkillsState = {
-    skillsInfo: {
+const initialState: HardSkillsState = {
+    hardSkillsInfo: {
         title: 'I am a developer and blah-blah-blah',
         info: 'Dolor irure et amet voluptate deserunt. Cupidatat tempor amet sunt qui anim occaecat do cillum laboris magna in nisi voluptate minim. Amet irure non ut fugiat deserunt. Sunt elit laboris id incididunt consequat id. Magna anim exercitation qui excepteur dolore. Sunt ut esse adipisicing voluptate velit cupidatat ex consequat. Aute nisi irure id ad est culpa fugiat ad ex aute sunt voluptate reprehenderit consectetur.'
     },
-    skillValues: [
+    hardSkillValues: [
         {
             name: 'Kotlin',
             familiarityPercents: 80
@@ -47,27 +47,27 @@ const initialState: SkillsState = {
     ]
 }
 
-const skillsStateName = 'skills'
-const skillsSlice = createSlice({
-    name: skillsStateName,
+const hardSkillsStateName = 'hardSkills'
+const hardSkillsSlice = createSlice({
+    name: hardSkillsStateName,
     initialState,
     reducers: {
-        updateSkills: (_, action: PayloadAction<SkillsState>) => action.payload
+        updateHardSkills: (_, action: PayloadAction<HardSkillsState>) => action.payload
     }
 })
 type RootState = {
-    [skillsStateName]: SkillsState
+    [hardSkillsStateName]: HardSkillsState
 }
 
-const { reducer, actions } = skillsSlice
-export const { updateSkills } = actions
-export const skillsReducer = reducer
-export default { [skillsStateName]: skillsReducer }
+const { reducer, actions } = hardSkillsSlice
+export const { updateHardSkills } = actions
+export const hardSkillsReducer = reducer
+export default { [hardSkillsStateName]: hardSkillsReducer }
 
-export const selectSkillInfo =
-    (rootState: RootState): SkillsInfo => rootState.skills.skillsInfo
-const _selectSkillValues = (rootState: RootState): Skill[] => rootState.skills.skillValues
-export const selectSkillValues = [
-    _selectSkillValues,
+export const selectHardSkillInfo =
+    (rootState: RootState): HardSkillsInfo => rootState.hardSkills.hardSkillsInfo
+const _selectHardSkillValues = (rootState: RootState): HardSkill[] => rootState.hardSkills.hardSkillValues
+export const selectHardSkillValues = [
+    _selectHardSkillValues,
     shallowEqual
 ] as const

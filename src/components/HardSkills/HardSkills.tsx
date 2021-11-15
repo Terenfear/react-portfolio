@@ -2,10 +2,10 @@ import { Typography } from '@mui/material'
 import { Box, useTheme } from '@mui/system'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import SkillItemList from './SkillItemList'
-import { selectSkillInfo } from './skillsSlice'
+import HardSkillItemList from './HardSkillItemList'
+import { selectHardSkillInfo } from './hardSkillsSlice'
 
-const Skills = (): JSX.Element => {
+const HardSkills = (): JSX.Element => {
     const theme = useTheme()
     const containerStyle = {
         display: 'flex',
@@ -18,12 +18,12 @@ const Skills = (): JSX.Element => {
             gap: 8,
         },
     } as const
-    const { info, title } = useSelector(selectSkillInfo)
+    const { info, title } = useSelector(selectHardSkillInfo)
     return (
         <Box sx={containerStyle}>
-            <SkillItemList flex='1 1 33%' width='100%' />
+            <HardSkillItemList flex='1 1 33%' width='100%' />
             <Box flex='1 1 66%'>
-                <Typography variant='h2' mb={3}>{title}</Typography>
+                <Typography variant='h3' mb={3}>{title}</Typography>
                 {
                     info.split('\n')
                         .filter(t => t.length > 0)
@@ -37,4 +37,4 @@ const Skills = (): JSX.Element => {
     )
 }
 
-export default Skills
+export default HardSkills
