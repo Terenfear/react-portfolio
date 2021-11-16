@@ -1,4 +1,5 @@
-import { Box, BoxProps, createSvgIcon, SvgIconProps, Link, useTheme } from '@mui/material'
+import { Box, BoxProps, createSvgIcon, SvgIconProps, Typography, useTheme } from '@mui/material'
+import { alpha } from '@mui/system'
 import React, { useCallback } from 'react'
 import { ReactComponent as LinkedInIcon } from './linkedin.svg'
 import EmailIcon from '@mui/icons-material/Email'
@@ -16,12 +17,17 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
         castedDMQ = oldDMQ
     }
 
-    const openLink = useCallback(() => window.open(url), [url])
+    const openLink = useCallback((e: { type?: string, key?: string }) => {
+        if (e.type === 'click' || e.key === 'Enter') {
+            window.open(url)
+        }
+    }, [url])
 
     return (
         <Box {...boxProps}
             sx={{
                 ...boxProps.sx,
+                textAlign: 'center',
                 p: 2,
                 [desktopMediaQuery]: {
                     ...castedDMQ,
@@ -29,50 +35,63 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
                 }
             }}>
             <Box sx={{
-                width: (t) => t.spacing(20),
-                height: (t) => t.spacing(20),
-                borderRadius: '50%',
-                p: 5,
-                mx: 'auto',
-                mb: 2,
-                color: 'primary.contrastText',
-                bgcolor: 'primary.main',
+                display: 'inline-block',
+                textAlign: 'center',
                 cursor: 'pointer',
-                position: 'relative',
-                ['::after']: {
-                    content: '""',
-                    position: 'absolute',
-                    borderRadius: '50%',
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
-                    boxShadow: (t) => `0 0 30px 0 ${t.palette.primary.dark}`,
-                    opacity: 0,
-                    animation: 'pulse 1s alternate infinite'
+                ['&:hover > h6, &:focus > h6']: {
+                    textDecorationColor: 'inherit'
                 },
-                ['@keyframes pulse']: {
-                    ['0%']: {
-                        opacity: 0
-                    },
-                    ['100%']: {
-                        opacity: 1
-                    }
-                }
+                ['&:hover > div, &:focus > div']: {
+                    boxShadow: (t) => `0 0 30px 0 ${t.palette.primary.light}`
+                },
             }}
+                role='link'
+                aria-label={name}
+                tabIndex={0}
+                onKeyDown={openLink}
                 onClick={openLink}>
-                <MemoizedIcon iconType={icon}
-                    sx={{
-                        width: '100%',
-                        height: '100%'
-                    }} />
+                <Box sx={{
+                    width: (t) => t.spacing(20),
+                    height: (t) => t.spacing(20),
+                    borderRadius: '50%',
+                    p: 5,
+                    mb: 2,
+                    color: 'primary.contrastText',
+                    bgcolor: 'primary.main',
+                    position: 'relative',
+                    boxShadow: '0 3px 9px #00000080',
+                    ['::after']: {
+                        content: '""',
+                        position: 'absolute',
+                        borderRadius: '50%',
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: 0,
+                        boxShadow: (t) => `0 0 30px 4px ${t.palette.primary.dark}`,
+                        opacity: 0,
+                        animation: 'pulse 1s ease-in-out infinite alternate'
+                    },
+                    ['@keyframes pulse']: {
+                        ['0%']: {
+                            opacity: 0
+                        },
+                        ['100%']: {
+                            opacity: 1
+                        }
+                    }
+                }}>
+                    <MemoizedIcon iconType={icon}
+                        sx={{
+                            width: '100%',
+                            height: '100%'
+                        }} />
+                </Box>
+                <Typography variant='h6' sx={{
+                    textDecoration: 'underline',
+                    textDecorationColor: (t) => alpha(t.palette.text.secondary, 0.4)
+                }}>{name}</Typography>
             </Box>
-            <Link variant='h6'
-                href={url}
-                sx={{
-                    textAlign: 'center',
-                    display: 'block'
-                }}>{name}</Link>
         </Box >
     )
 }

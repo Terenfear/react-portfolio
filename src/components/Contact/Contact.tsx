@@ -23,7 +23,7 @@ const Contact = (): JSX.Element => {
     const flexBasisExpr = calculateFlexBasisExpr(IDEAL_COLUMN_COUNT, numberItemGap)
     return (
         <Box>
-            <Typography variant='h3' mb={4} textAlign='center'>{title}</Typography>
+            <Typography variant='h3' mb={3} textAlign='center'>{title}</Typography>
             <Box sx={{
                 display: 'flex',
                 flexFlow: 'row wrap',
