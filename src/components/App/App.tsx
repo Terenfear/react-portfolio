@@ -5,6 +5,7 @@ import Experience from '../Experience/Experience'
 import PortfolioItem from '../PortfolioItem/PortfolioItem'
 import HardSkills from '../HardSkills/HardSkills'
 import SoftSkills from '../SoftSkills/SoftSkills'
+import Contact from '../Contact/Contact'
 
 const App = (): JSX.Element => {
     return (
@@ -16,6 +17,9 @@ const App = (): JSX.Element => {
                 bgcolor: 'background.paper'
             }
         }}>
+            <PortfolioItem>
+                <Contact />
+            </PortfolioItem>
             <PortfolioItem>
                 <SoftSkills />
             </PortfolioItem>
