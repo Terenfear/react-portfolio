@@ -7,7 +7,7 @@ import { selectHome } from './homeSlice'
 
 const Home = (): JSX.Element => {
     const theme = useTheme()
-    const { title, subtitle, videoUrl, videoAlt } = useSelector(selectHome)
+    const { title, subtitle, videoUrl } = useSelector(selectHome)
     return (
         <PortfolioItem>
             <Box sx={{
@@ -33,8 +33,7 @@ const Home = (): JSX.Element => {
                 clipPath: 'circle(farthest-side at 50% -150%)',
                 [theme.breakpoints.up('md')]: {
                     gridColumn: VIDEO_DESKTOP_COLUMNS,
-                    // TODO(Nov 17, 2021): fix narrow screens
-                    clipPath: 'circle(farthest-side at 100% 50%)'
+                    clipPath: 'ellipse(farthest-side 130% at 100% 50%)'
                 }
             }}>
                 <video style={{
