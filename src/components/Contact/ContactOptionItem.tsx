@@ -41,8 +41,10 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
                 ['&:hover > h6, &:focus > h6']: {
                     textDecorationColor: 'inherit'
                 },
-                ['&:hover > div, &:focus > div']: {
-                    boxShadow: (t) => `0 0 30px 0 ${t.palette.primary.light}`
+                [`&:hover .${HOVER_BUTTON_CLASS}, &:focus .${HOVER_BUTTON_CLASS}`]: {
+                    maskSize: '100% 100%',
+                    // ['-webkit-mask-size']: '100% 100%'
+                    // color: '#ff0000'
                 },
             }}
                 role='link'
@@ -53,39 +55,62 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
                 <Box sx={{
                     width: (t) => t.spacing(20),
                     height: (t) => t.spacing(20),
-                    borderRadius: '50%',
-                    p: 5,
                     mb: 2,
-                    color: 'primary.contrastText',
-                    bgcolor: 'primary.main',
                     position: 'relative',
-                    boxShadow: '0 3px 9px #00000080',
-                    ['::after']: {
-                        content: '""',
+                    lineHeight: 0
+                }}>
+                    <Box sx={{
+                        ...COMMON_BUTTON_SX_PROPS,
+                        color: 'primary.contrastText',
+                        bgcolor: 'primary.main',
+                        position: 'relative',
+                        ['::after']: {
+                            content: '""',
+                            position: 'absolute',
+                            borderRadius: '50%',
+                            top: 0,
+                            right: 0,
+                            bottom: 0,
+                            left: 0,
+                            boxShadow: (t) => `0 0 30px 4px ${t.palette.primary.dark}`,
+                            opacity: 0,
+                            animation: 'pulse 1s ease-in-out infinite alternate'
+                        },
+                        ['@keyframes pulse']: {
+                            ['0%']: {
+                                opacity: 0
+                            },
+                            ['100%']: {
+                                opacity: 1
+                            }
+                        }
+                    }}>
+                        <MemoizedIcon iconType={icon}
+                            sx={{
+                                width: '100%',
+                                height: '100%'
+                            }} />
+                    </Box>
+                    <Box sx={{
+                        ...COMMON_BUTTON_SX_PROPS,
+                        color: 'common.white',
+                        bgcolor: 'primary.light',
                         position: 'absolute',
-                        borderRadius: '50%',
                         top: 0,
                         right: 0,
                         bottom: 0,
                         left: 0,
-                        boxShadow: (t) => `0 0 30px 4px ${t.palette.primary.dark}`,
-                        opacity: 0,
-                        animation: 'pulse 1s ease-in-out infinite alternate'
-                    },
-                    ['@keyframes pulse']: {
-                        ['0%']: {
-                            opacity: 0
-                        },
-                        ['100%']: {
-                            opacity: 1
-                        }
-                    }
-                }}>
-                    <MemoizedIcon iconType={icon}
-                        sx={{
-                            width: '100%',
-                            height: '100%'
-                        }} />
+                        // display: 'none',
+                        mask: 'radial-gradient(circle closest-side,#fff 99%,transparent 100%) center/0% 0% no-repeat',
+                        transition: '300ms ease-out'
+                    }}
+                        className={HOVER_BUTTON_CLASS}>
+                        <MemoizedIcon iconType={icon}
+                            sx={{
+                                width: '100%',
+                                height: '100%'
+                            }} />
+                    </Box>
                 </Box>
                 <Typography variant='h6' sx={{
                     textDecoration: 'underline',
@@ -110,5 +135,12 @@ const Icon = (props: { iconType?: ContactOptionIcon } & SvgIconProps): JSX.Eleme
 
 }
 const MemoizedIcon = React.memo(Icon)
+
+const HOVER_BUTTON_CLASS = 'hoverButton'
+const COMMON_BUTTON_SX_PROPS = {
+    borderRadius: '50%',
+    p: 5,
+    boxShadow: '0 3px 9px #00000080',
+}
 
 export default ContactOptionItem
