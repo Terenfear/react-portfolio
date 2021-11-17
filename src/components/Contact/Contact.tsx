@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { calculateFlexBasisExpr } from '../../utils/reactUtils'
 import useIsMobile from '../../utils/useIsMobile'
+import SimplePortfolioItem from '../PortfolioItem/SimplePortfolioItem'
 import ContactOptionItem from './ContactOptionItem'
 import { selectContactOptions, selectContactTitle } from './contactSlice'
 
@@ -22,7 +23,7 @@ const Contact = (): JSX.Element => {
     )
     const flexBasisExpr = calculateFlexBasisExpr(IDEAL_COLUMN_COUNT, numberItemGap)
     return (
-        <Box>
+        <SimplePortfolioItem>
             <Typography variant='h3' mb={3} textAlign='center'>{title}</Typography>
             <Box sx={{
                 display: 'flex',
@@ -40,7 +41,7 @@ const Contact = (): JSX.Element => {
                         }} />
                 )}
             </Box>
-        </Box>
+        </SimplePortfolioItem>
     )
 }
 
