@@ -13,18 +13,18 @@ import {
     PULSE_ANIMATION,
     TEXT_LINK_CLASS
 } from './ContactOptionItemStyles'
+import { asObjectOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
 
 const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
     const theme = useTheme()
     const { name, url, icon, ...boxProps } = props
 
-    const oldSx: Record<string, unknown> | undefined | null = boxProps.sx
     const desktopMediaQuery = theme.breakpoints.up('md')
-    const oldDMQ = oldSx?.[desktopMediaQuery]
-    let castedDMQ
-    if (typeof oldDMQ === 'object' && oldDMQ !== null) {
-        castedDMQ = oldDMQ
-    }
+    const oldDMQ = boxProps.sx ?
+        asObjectOrUndefined(
+            getDynamicProperty(boxProps.sx, desktopMediaQuery)
+        ) :
+        undefined
 
     const openLink = useCallback((e: { type?: string, key?: string }) => {
         if (e.type === 'click' || e.key === 'Enter') {
@@ -39,7 +39,7 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
                 textAlign: 'center',
                 p: 2,
                 [desktopMediaQuery]: {
-                    ...castedDMQ,
+                    ...oldDMQ,
                     p: 4,
                 }
             }}>

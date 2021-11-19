@@ -4,18 +4,19 @@ import ForumIcon from '@mui/icons-material/Forum'
 import TranslateIcon from '@mui/icons-material/Translate'
 import React from 'react'
 import { SoftSkill, SoftSkillIcon } from './softSkillsSlice'
+import { asObjectOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
 
 const SoftSkillItem = (props: SoftSkill & BoxProps): JSX.Element => {
     const theme = useTheme()
     const { name, description, icon, ...boxProps } = props
-    const oldSx: Record<string, unknown> | undefined | null = boxProps.sx
+
     const desktopMediaQuery = theme.breakpoints.up('md')
-    const oldDMQ = oldSx?.[desktopMediaQuery]
-    let castedDMQ
-    if (typeof oldDMQ === 'object' && oldDMQ !== null) {
-        castedDMQ = oldDMQ
-    }
-    const MemoizedIcon = React.memo(Icon)
+    const oldDMQ = boxProps.sx ?
+        asObjectOrUndefined(
+            getDynamicProperty(boxProps.sx, desktopMediaQuery)
+        ) :
+        undefined
+
     return (
         <Box {...boxProps}
             sx={{
@@ -25,7 +26,7 @@ const SoftSkillItem = (props: SoftSkill & BoxProps): JSX.Element => {
                 background: ITEM_COLOR,
                 borderRadius: 4,
                 [desktopMediaQuery]: {
-                    ...castedDMQ,
+                    ...oldDMQ,
                     p: 4,
                 }
             }}>
@@ -69,6 +70,7 @@ const Icon = (props: { iconType: SoftSkillIcon } & SvgIconProps): JSX.Element =>
     return <Component {...svgIconProps} />
 
 }
+const MemoizedIcon = React.memo(Icon)
 
 const SHADOW_COLOR = '#0000001c'
 const ITEM_COLOR = '#00000028'
