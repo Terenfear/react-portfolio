@@ -12,23 +12,25 @@ const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithC
         [startWithLargeArea, theme]
     )
     return (
-        <Box sx={{
-            display: 'grid',
-            alignItems: 'center',
-            gridTemplateAreas: `
+        <section>
+            <Box sx={{
+                display: 'grid',
+                alignItems: 'center',
+                gridTemplateAreas: `
             'startMargin ${START_GAP} ${SMALL_AREA} ${END_GAP} endMargin'
             'startMargin ${START_GAP} ${LARGE_AREA} ${END_GAP} endMargin'
             `,
-            gridTemplateColumns: 'minmax(1rem, 5fr) 1rem minmax(auto, 90fr) 1rem minmax(1rem, 5fr)',
-            rowGap: 4,
-            [theme.breakpoints.up('md')]: {
-                rowGap: 0,
-                gridTemplateAreas: `'startMargin ${START_GAP} ${areaTemplate} ${END_GAP} endMargin'`,
-                gridTemplateColumns: `minmax(1rem, 1fr) 1rem ${columnTemplate} 1rem minmax(1rem, 1fr)`,
-            }
-        }}>
-            {children}
-        </Box>
+                gridTemplateColumns: 'minmax(1rem, 5fr) 1rem minmax(auto, 90fr) 1rem minmax(1rem, 5fr)',
+                rowGap: 4,
+                [theme.breakpoints.up('md')]: {
+                    rowGap: 0,
+                    gridTemplateAreas: `'startMargin ${START_GAP} ${areaTemplate} ${END_GAP} endMargin'`,
+                    gridTemplateColumns: `minmax(1rem, 1fr) 1rem ${columnTemplate} 1rem minmax(1rem, 1fr)`,
+                }
+            }}>
+                {children}
+            </Box>
+        </section>
     )
 }
 

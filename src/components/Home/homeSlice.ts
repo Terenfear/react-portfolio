@@ -8,8 +8,8 @@ type HomeState = {
 }
 
 const initialState: HomeState = {
-    title: 'Look mom, I\'m a Web Developer (but not quite)',
-    subtitle: 'Hey dude, want some programming?',
+    title: 'Placeholder Title',
+    subtitle: 'Consectetur aute quis aliquip veniam commodo in aliqua veniam. \n Ut non excepteur et fugiat minim esse aliquip enim nisi elit irure duis anim.',
     videoUrl: 'https://i.imgur.com/hDOfuOx.mp4',
     videoAlt: 'Author (not really)'
 }

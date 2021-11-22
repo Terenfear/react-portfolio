@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-key */
 import { Box, Typography, useTheme } from '@mui/material'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import PortfolioItem, { SMALL_AREA, LARGE_AREA } from '../PortfolioItem/PortfolioItem'
+import { MultilineTextTypographiesList } from '../Utils/MultilineTextTypographiesList'
 import { selectHome } from './homeSlice'
 
 const Home = (): JSX.Element => {
@@ -18,13 +19,9 @@ const Home = (): JSX.Element => {
                 }
             }}>
                 <Typography variant='h1' mb={1}>{title}</Typography>
-                {
-                    subtitle.split('\n')
-                        .filter(t => t.length > 0)
-                        .map(chunkOfText => (
-                            <Typography variant='body1' paragraph>{chunkOfText}</Typography>
-                        ))
-                }
+                <MultilineTextTypographiesList multilineText={subtitle}
+                    variant='body1'
+                    paragraph />
             </Box>
             <Box sx={{
                 gridColumn: VIDEO_MOBILE_COLUMNS,

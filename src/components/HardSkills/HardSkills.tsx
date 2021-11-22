@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import TextImagePortfolioItem from '../PortfolioItem/TextImagePortfolioItem'
+import { MultilineTextTypographiesList } from '../Utils/MultilineTextTypographiesList'
 import HardSkillItemList from './HardSkillItemList'
 import { selectHardSkillInfo } from './hardSkillsSlice'
 
@@ -15,14 +16,9 @@ const HardSkills = (): JSX.Element => {
             textAreaChildren={
                 <>
                     <Typography variant='h3' mb={3}>{title}</Typography>
-                    {
-                        info.split('\n')
-                            .filter(t => t.length > 0)
-                            .map(chunkOfText => (
-                                // eslint-disable-next-line react/jsx-key
-                                <Typography variant='body1' paragraph>{chunkOfText}</Typography>
-                            ))
-                    }
+                    <MultilineTextTypographiesList multilineText={info}
+                        variant='body1'
+                        paragraph />
                 </>
             }
         />
