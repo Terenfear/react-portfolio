@@ -23,7 +23,7 @@ const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithC
             `,
                 gridTemplateColumns: 'minmax(1rem, 5fr) 1rem minmax(auto, 90fr) 1rem minmax(1rem, 5fr)',
                 rowGap: 4,
-                [theme.breakpoints.up('md')]: {
+                [theme.breakpoints.isDesktopCSSMediaQuery]: {
                     rowGap: 0,
                     gridTemplateAreas: `'startMargin ${START_GAP} ${areaTemplate} ${END_GAP} endMargin'`,
                     gridTemplateColumns: `minmax(1rem, 1fr) 1rem ${columnTemplate} 1rem minmax(1rem, 1fr)`,

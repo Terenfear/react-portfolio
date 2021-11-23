@@ -1,8 +1,7 @@
+import React from 'react'
 import { Box, Typography, useTheme } from '@mui/material'
-import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { calculateFlexBasisExpr } from '../../utils/reactUtils'
-import useIsMobile from '../../utils/useIsMobile'
 import SimplePortfolioItem from '../PortfolioItem/SimplePortfolioItem'
 import ContactOptionItem from './ContactOptionItem'
 import { selectContactOptions, selectContactTitle } from './contactSlice'
@@ -11,17 +10,9 @@ const Contact = (): JSX.Element => {
     const theme = useTheme()
     const title = useSelector(selectContactTitle)
     const skills = useSelector(...selectContactOptions)
-    const isMobile = useIsMobile()
-    const itemGapInSpacingUnits = isMobile ? 4 : 8
-    const itemGap = useMemo(
-        () => theme.spacing(itemGapInSpacingUnits),
-        [theme, itemGapInSpacingUnits]
-    )
-    const numberItemGap = useMemo(
-        () => Number(itemGap.replace('px', '')) || 0,
-        [itemGap]
-    )
-    const flexBasisExpr = calculateFlexBasisExpr(IDEAL_COLUMN_COUNT, numberItemGap)
+    const itemGap = theme.spacing(8)
+    const itemGapNumber = Number(itemGap.replace('px', '')) || 0
+    const flexBasisExpr = calculateFlexBasisExpr(IDEAL_COLUMN_COUNT, itemGapNumber)
     return (
         <SimplePortfolioItem>
             <Typography variant='h3' mb={3} textAlign='center'>{title}</Typography>
@@ -35,7 +26,7 @@ const Contact = (): JSX.Element => {
                     <ContactOptionItem {...s}
                         key={s.name}
                         sx={{
-                            [theme.breakpoints.up('md')]: {
+                            [theme.breakpoints.isDesktopCSSMediaQuery]: {
                                 flex: `0 1 ${flexBasisExpr}`
                             }
                         }} />
