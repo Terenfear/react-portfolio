@@ -56,12 +56,12 @@ const App = (): JSX.Element => {
 
 const smoothScrollIntoView = (
     element: HTMLElement | null | undefined,
-    getIsMobile: () => boolean
+    getIsDesktop: () => boolean
 ): unknown =>
-    element?.scrollIntoView(getScrollOptions(getIsMobile))
+    element?.scrollIntoView(getScrollOptions(getIsDesktop))
 
-const getScrollOptions = (getIsMobile: () => boolean): ScrollIntoViewOptions => {
-    if (getIsMobile()) {
+const getScrollOptions = (getIsDesktop: () => boolean): ScrollIntoViewOptions => {
+    if (getIsDesktop()) {
         return { behavior: 'smooth', block: 'center', inline: 'center' }
     } else {
         return { behavior: 'smooth' }

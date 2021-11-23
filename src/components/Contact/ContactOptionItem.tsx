@@ -19,7 +19,7 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
     const theme = useTheme()
     const { name, url, icon, ...boxProps } = props
 
-    const desktopMediaQuery = theme.breakpoints.up('md')
+    const desktopMediaQuery = theme.breakpoints.isDesktopCSSMediaQuery
     const oldDMQ = boxProps.sx ?
         asObjectOrUndefined(
             getDynamicProperty(boxProps.sx, desktopMediaQuery)

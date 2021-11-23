@@ -20,7 +20,7 @@ const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element =>
             <Box sx={{
                 gridArea: LARGE_AREA,
                 pb: 6,
-                [theme.breakpoints.up('md')]: {
+                [theme.breakpoints.isDesktopCSSMediaQuery]: {
                     pt: 6
                 }
             }}>
@@ -33,7 +33,7 @@ const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element =>
                     gap: 3,
                     mt: 4,
                     justifyContent: 'space-between',
-                    [theme.breakpoints.up('md')]: {
+                    [theme.breakpoints.isDesktopCSSMediaQuery]: {
                         display: 'inline-flex'
                     }
                 }}>
@@ -54,7 +54,7 @@ const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element =>
                 width: '100%',
                 height: '100%',
                 clipPath: 'circle(farthest-side at 50% -150%)',
-                [theme.breakpoints.up('md')]: {
+                [theme.breakpoints.isDesktopCSSMediaQuery]: {
                     gridColumn: VIDEO_DESKTOP_COLUMNS,
                     clipPath: 'ellipse(farthest-side 130% at 100% 50%)'
                 }
@@ -86,7 +86,7 @@ const StyledVideo = styled('video')(({ theme }) => ({
     minWidth: 0,
     width: '100%',
     height: '100%',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.isDesktopCSSMediaQuery]: {
         objectPosition: '20%',
     }
 }))

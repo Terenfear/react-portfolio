@@ -26,7 +26,7 @@ const SoftSkills = (): JSX.Element => {
                     <SoftSkillItem {...s}
                         key={s.name}
                         sx={{
-                            [theme.breakpoints.up('md')]: {
+                            [theme.breakpoints.isDesktopCSSMediaQuery]: {
                                 flex: `0 1 ${flexBasisExpr}`
                             }
                         }} />
