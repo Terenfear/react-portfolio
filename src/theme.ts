@@ -80,6 +80,10 @@ const mergedTheme = createTheme(baseTheme, {
                 }
             }
         }
+    },
+    breakpoints: {
+        isDesktopCSSMediaQuery: baseTheme.breakpoints.up('md'),
+        isDesktopMediaQuery: baseTheme.breakpoints.up('md').replace(/^@media( ?)/m, ''),
     }
 }
 )

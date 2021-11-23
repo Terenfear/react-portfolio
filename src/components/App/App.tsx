@@ -1,4 +1,3 @@
-import { Box } from '@mui/system'
 import React, { useCallback, useRef } from 'react'
 import AboutMe from '../AboutMe/AboutMe'
 import Experience from '../Experience/Experience'
@@ -6,8 +5,11 @@ import HardSkills from '../HardSkills/HardSkills'
 import SoftSkills from '../SoftSkills/SoftSkills'
 import Contact from '../Contact/Contact'
 import Home from '../Home/Home'
+import { useTheme, Box } from '@mui/material'
 
 const App = (): JSX.Element => {
+    const theme = useTheme()
+
     const homeRef = useRef<HTMLDivElement>(null)
     const aboutMeRef = useRef<HTMLDivElement>(null)
     const hardSkillsRef = useRef<HTMLDivElement>(null)
@@ -15,8 +17,18 @@ const App = (): JSX.Element => {
     const softSkillsRef = useRef<HTMLDivElement>(null)
     const contactRef = useRef<HTMLDivElement>(null)
 
-    const onLearnMoreClick = useCallback(() => smoothScrollIntoView(aboutMeRef.current), [])
-    const onContactClick = useCallback(() => smoothScrollIntoView(contactRef.current), [])
+    const getIsMobile = useCallback(
+        () => window.matchMedia(theme.breakpoints.isDesktopMediaQuery).matches,
+        [theme]
+    )
+    const onLearnMoreClick = useCallback(
+        () => smoothScrollIntoView(aboutMeRef.current, getIsMobile),
+        [getIsMobile]
+    )
+    const onContactClick = useCallback(
+        () => smoothScrollIntoView(contactRef.current, getIsMobile),
+        [getIsMobile]
+    )
 
     return (
         <Box sx={{
@@ -42,7 +54,18 @@ const App = (): JSX.Element => {
     )
 }
 
-const smoothScrollIntoView = (element: HTMLElement | null | undefined): unknown =>
-    element?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+const smoothScrollIntoView = (
+    element: HTMLElement | null | undefined,
+    getIsMobile: () => boolean
+): unknown =>
+    element?.scrollIntoView(getScrollOptions(getIsMobile))
+
+const getScrollOptions = (getIsMobile: () => boolean): ScrollIntoViewOptions => {
+    if (getIsMobile()) {
+        return { behavior: 'smooth' }
+    } else {
+        return { behavior: 'smooth', block: 'center', inline: 'center' }
+    }
+}
 
 export default App
