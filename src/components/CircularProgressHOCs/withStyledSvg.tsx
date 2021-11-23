@@ -6,6 +6,7 @@ import {
 import { SxProps } from '@mui/system'
 import React from 'react'
 import { getDisplayName } from '../../utils/reactUtils'
+import { asObjectOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
 
 const svgCircleClass = `.${circularProgressClasses.circle}`
 
@@ -13,19 +14,18 @@ const withStyledSvg =
     (sxProperties: SxProps) =>
         (CircularProgressDelegate: typeof CircularProgress): typeof CircularProgress => {
             const WithStyledSvg = (props: CircularProgressProps): JSX.Element => {
-                const oldSx: Record<string, unknown> | undefined | null = props.sx
-                const oldSvgCircle = oldSx?.[svgCircleClass]
-                let castedOldSvgCircle
-                if (typeof oldSvgCircle === 'object' && oldSvgCircle !== null) {
-                    castedOldSvgCircle = oldSvgCircle
-                }
+                const oldSvgCircle = props.sx ?
+                    asObjectOrUndefined(
+                        getDynamicProperty(props.sx, svgCircleClass)
+                    ) :
+                    undefined
                 return (
                     <CircularProgressDelegate
                         {...props}
                         sx={{
                             ...props.sx,
                             [svgCircleClass]: {
-                                ...castedOldSvgCircle,
+                                ...oldSvgCircle,
                                 ...sxProperties,
                             }
                         }} />

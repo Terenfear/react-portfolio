@@ -17,8 +17,6 @@ const withLabel =
                     () => calcTextOffset(props.thickness),
                     [props.thickness]
                 )
-                const textOffsetKey = '--textOffset'
-                const textOffsetVar = `var(${textOffsetKey})`
                 // TODO(Nov 02, 2021): make label accessible
                 return (
                     <Box position='relative'>
@@ -57,6 +55,9 @@ const withLabel =
             WithLabel.displayName = `WithLabel(${getDisplayName(CircularProgressDelegate as any)})`
             return WithLabel
         }
+
+const textOffsetKey = '--textOffset'
+const textOffsetVar = `var(${textOffsetKey})`
 
 // TODO(Nov 04, 2021): Is all that really needed?
 const calcTextOffset = (progressThickness = 3.6): string => {
