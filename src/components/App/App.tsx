@@ -1,39 +1,48 @@
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import AboutMe from '../AboutMe/AboutMe'
 import Experience from '../Experience/Experience'
-import PortfolioItem from '../PortfolioItem/PortfolioItem'
 import HardSkills from '../HardSkills/HardSkills'
 import SoftSkills from '../SoftSkills/SoftSkills'
 import Contact from '../Contact/Contact'
+import Home from '../Home/Home'
 
 const App = (): JSX.Element => {
+    const homeRef = useRef<HTMLDivElement>(null)
+    const aboutMeRef = useRef<HTMLDivElement>(null)
+    const hardSkillsRef = useRef<HTMLDivElement>(null)
+    const experienceRef = useRef<HTMLDivElement>(null)
+    const softSkillsRef = useRef<HTMLDivElement>(null)
+    const contactRef = useRef<HTMLDivElement>(null)
+
+    const onLearnMoreClick = useCallback(() => smoothScrollIntoView(aboutMeRef.current), [])
+    const onContactClick = useCallback(() => smoothScrollIntoView(contactRef.current), [])
+
     return (
         <Box sx={{
-            ['& > *']: {
+            ['& > *:not(:first-child)']: {
                 py: 6
             },
             ['& > *:nth-child(odd)']: {
                 bgcolor: 'background.paper'
             }
         }}>
-            <PortfolioItem>
-                <Contact />
-            </PortfolioItem>
-            <PortfolioItem>
-                <SoftSkills />
-            </PortfolioItem>
-            <PortfolioItem>
-                <AboutMe />
-            </PortfolioItem>
-            <PortfolioItem>
-                <HardSkills />
-            </PortfolioItem>
-            <PortfolioItem>
-                <Experience />
-            </PortfolioItem>
+            <div ref={homeRef}
+                style={{ minHeight: '100vh' }}>
+                <Home
+                    onLearnMoreClick={onLearnMoreClick}
+                    onContactClicked={onContactClick} />
+            </div>
+            <div ref={aboutMeRef}><AboutMe /></div>
+            <div ref={hardSkillsRef}><HardSkills /></div>
+            <div ref={experienceRef}><Experience /></div>
+            <div ref={softSkillsRef}><SoftSkills /></div>
+            <div ref={contactRef}><Contact /></div>
         </Box>
     )
 }
+
+const smoothScrollIntoView = (element: HTMLElement | null | undefined): unknown =>
+    element?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
 
 export default App

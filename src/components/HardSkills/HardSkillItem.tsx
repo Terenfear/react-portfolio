@@ -4,7 +4,7 @@ import withBackground from '../CircularProgressHOCs/withBackground'
 import withLabel from '../CircularProgressHOCs/withLabel'
 import withStyledSvg from '../CircularProgressHOCs/withStyledSvg'
 
-interface HardSkillItemProps {
+export interface HardSkillItemProps {
     label: string,
     progress: number
 }

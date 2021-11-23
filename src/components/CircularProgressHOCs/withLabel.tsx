@@ -41,9 +41,10 @@ const withLabel =
                                     textAlign: 'center',
                                     color: theme.typography.h1.color,
                                     fontSize: '0.8rem',
-                                    lineHeight: '1.8rem',
+                                    lineHeight: 1.2,
                                     [theme.breakpoints.up('sm')]: {
-                                        fontSize: '1.25rem'
+                                        fontSize: '1.25rem',
+                                        lineHeight: 1.8,
                                     }
                                 }}>
                                 {label}

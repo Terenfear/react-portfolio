@@ -7,6 +7,7 @@ import App from './components/App/App'
 import reportWebVitals from './reportWebVitals'
 import configureAppStore from './store'
 import theme from './theme'
+import './index.module.css'
 
 const store = configureAppStore()
 

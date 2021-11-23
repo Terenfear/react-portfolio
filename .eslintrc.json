@@ -45,6 +45,14 @@
         "no-trailing-spaces": "error",
         "eol-last": "error"
     },
+    "overrides": [
+        {
+            "files": ["**/*.tsx"],
+            "rules": {
+                "react/prop-types": "off"
+            }
+        }
+    ],
     "settings": {
         "react": {
             "version": "detect"

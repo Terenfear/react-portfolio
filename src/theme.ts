@@ -1,10 +1,6 @@
 import { common } from '@mui/material/colors'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
-const hStyle = {
-    fontFamily: '"Roboto Slab", serif',
-    lineHeight: 1.3
-}
 const baseTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -20,36 +16,73 @@ const baseTheme = createTheme({
             secondary: common.white
         }
     },
-    typography: {
-        h1: hStyle,
-        h2: {
-            fontWeight: 'bold',
-            fontSize: '1.25rem',
-            letterSpacing: '0.13em',
-            textTransform: 'uppercase'
-        },
-        h3: hStyle,
-        h4: hStyle,
-        h5: hStyle,
-        h6: hStyle,
-        body1: {
-            fontSize: '1.25rem',
-            lineHeight: 1.5
+    typography: (palette) => {
+        const hStyle = {
+            fontFamily: '"Roboto Slab", serif',
+            color: palette.text.secondary
+        }
+        return {
+            htmlFontSize: 20,
+            fontSize: 20,
+            h1: {
+                ...hStyle,
+                fontSize: '3.75rem'
+            },
+            h2: {
+                color: palette.primary.main,
+                fontWeight: 'bold',
+                fontSize: '1.25rem',
+                letterSpacing: '0.13em',
+                textTransform: 'uppercase'
+            },
+            h3: hStyle,
+            h4: hStyle,
+            h5: hStyle,
+            h6: hStyle,
+            button: {
+                color: palette.common.white,
+                lineHeight: 1.2,
+                textTransform: 'capitalize',
+            }
+        }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    minWidth: '100',
+                    padding: '0.4rem 18px',
+                    borderRadius: '100vmax',
+                },
+                outlined: {
+                    borderWidth: 3,
+                    ['&:hover']: {
+                        borderWidth: 3
+                    }
+                }
+            }
         }
     }
 })
 
 const mergedTheme = createTheme(baseTheme, {
     typography: {
-        h1: { color: baseTheme.palette.text.secondary },
-        h2: { color: baseTheme.palette.primary.main },
-        h3: { color: baseTheme.palette.text.secondary },
-        h4: { color: baseTheme.palette.text.secondary },
-        h5: { color: baseTheme.palette.text.secondary },
-        h6: { color: baseTheme.palette.text.secondary }
+        button: { letterSpacing: baseTheme.typography.body1.letterSpacing }
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    [baseTheme.breakpoints.up('md')]: {
+                        minWidth: 185,
+                        padding: '0.5rem 25px',
+                    }
+                }
+            }
+        }
     }
 }
 )
-const theme = responsiveFontSizes(mergedTheme)
+const theme = responsiveFontSizes(mergedTheme, { factor: 3 })
 
 export default theme
