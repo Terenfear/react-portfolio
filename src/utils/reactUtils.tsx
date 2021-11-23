@@ -10,9 +10,11 @@ type MultilineTextComponentListProps = {
 }
 
 /**
- * Creates a React Fragment which contains a component for every line of text from the `multilineText` attribute
+ * Creates a React Fragment which contains a component for every line of text
+ * from the `multilineText` attribute.
  * @param Component component to use for each line
- * @returns `React.Fragment` with a number of components
+ * @returns a new component that is essentially a `React.Fragment`. Will accept
+ * the same attribute as the parameter `Component`
  */
 export const createMultilineTextComponentList = <C extends AnyJSXElementConstructor, P extends PropsOf<C>>(Component: C) => {
     const MultilineTextComponentList = (props: P & MultilineTextComponentListProps): JSX.Element | null => {

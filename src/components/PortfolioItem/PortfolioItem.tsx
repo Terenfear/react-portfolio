@@ -12,8 +12,9 @@ const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithC
         [startWithLargeArea, theme]
     )
     return (
-        <section>
+        <section style={{ minHeight: 'inherit' }}>
             <Box sx={{
+                minHeight: 'inherit',
                 display: 'grid',
                 alignItems: 'center',
                 gridTemplateAreas: `
