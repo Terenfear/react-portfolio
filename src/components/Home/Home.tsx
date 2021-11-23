@@ -1,9 +1,10 @@
-import React from 'react'
-import { Box, Button, styled, Theme, Typography, useTheme } from '@mui/material'
+import React, { PropsWithChildren, useEffect, useMemo } from 'react'
+import { Box, Button, styled, Typography, useTheme } from '@mui/material'
 import { useSelector } from 'react-redux'
 import PortfolioItem, { SMALL_AREA, LARGE_AREA } from '../PortfolioItem/PortfolioItem'
 import { MultilineTextTypographiesList } from '../Utils/MultilineTextTypographiesList'
 import { selectHome } from './homeSlice'
+import { useInView } from 'react-intersection-observer'
 
 export interface HomeProps {
     onLearnMoreClick: () => void,
@@ -13,6 +14,7 @@ export interface HomeProps {
 const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element => {
     const theme = useTheme()
     const { title, subtitle, videoUrl } = useSelector(selectHome)
+
     return (
         <PortfolioItem>
             <Box sx={{
@@ -57,16 +59,29 @@ const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element =>
                     clipPath: 'ellipse(farthest-side 130% at 100% 50%)'
                 }
             }}>
-                <HomeVideo loop muted autoPlay>
-                    <source src={videoUrl} type='video/mp4' />
-                    Your browser does not support the video tag
-                </HomeVideo>
+                <HomeVideo videoUrl={videoUrl} />
             </Box>
         </PortfolioItem >
     )
 }
 
-const HomeVideo = styled('video')(({ theme }) => ({
+const HomeVideo = React.memo(({ videoUrl }: { videoUrl: string }) => {
+    const [setRef, inView, entry] = useInView({ threshold: 0.1 })
+    useEffect(() => {
+        const element = entry?.target
+        if (element && element !== null) {
+            setVideoState(element as HTMLVideoElement, inView)
+        }
+    }, [inView, entry])
+    return (
+        <StyledVideo ref={setRef} loop muted>
+            <source src={videoUrl} type='video/mp4' />
+            Your browser does not support the video tag
+        </StyledVideo>
+    )
+})
+
+const StyledVideo = styled('video')(({ theme }) => ({
     objectFit: 'cover',
     minWidth: 0,
     width: '100%',
@@ -75,6 +90,14 @@ const HomeVideo = styled('video')(({ theme }) => ({
         objectPosition: '20%',
     }
 }))
+
+const setVideoState = (videoElement: HTMLVideoElement, isPlaying: boolean): void => {
+    if (isPlaying) {
+        videoElement.play()
+    } else {
+        videoElement.pause()
+    }
+}
 
 const buttonSx = { flex: '1' } as const
 
