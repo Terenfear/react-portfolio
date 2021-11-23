@@ -1,25 +1,23 @@
 import { Box, BoxProps, Theme, useTheme } from '@mui/material'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useSelector } from 'react-redux'
 import { calculateFlexBasisExpr } from '../../utils/reactUtils'
-import useIsMobile from '../../utils/useIsMobile'
+import useIsDesktop from '../../utils/useIsDesktop'
 import HardSkillItem from './HardSkillItem'
 import { selectHardSkillValues, HardSkill } from './hardSkillsSlice'
 
 const HardSkillItemList = (props: BoxProps): JSX.Element => {
     const theme = useTheme()
     const skills = useSelector(...selectHardSkillValues)
-    const isMobile = useIsMobile()
-    const columnsCount = isMobile ?
-        skills.length >= SKILL_COUNT_BREAKPOINT ? 3 : 2
-        : 2
+    const isDesktop = useIsDesktop()
     const { ref, inView } = useInView({ threshold: 0.33 })
-    const gap = useMemo(
-        () => Number(getItemGap(theme).replace('px', '')) || 0,
-        [theme]
-    )
-    const flexBasisExpr = calculateFlexBasisExpr(columnsCount, gap)
+
+    const columnsCount = isDesktop ? 2
+        : skills.length >= SKILL_COUNT_BREAKPOINT ? 3 : 2
+    const itemGap = theme.spacing(ITEM_GAP_SPACING)
+    const itemGapNumber = Number(itemGap.replace('px', '')) || 0
+    const flexBasisExpr = calculateFlexBasisExpr(columnsCount, itemGapNumber)
     return (
         <Box {...props}
             ref={ref}
@@ -28,7 +26,7 @@ const HardSkillItemList = (props: BoxProps): JSX.Element => {
                 display: 'flex',
                 flexFlow: 'row wrap',
                 justifyContent: 'center',
-                gap: getItemGap
+                gap: itemGap
             }}>
             {skills.map(s =>
                 <GridItem
@@ -58,6 +56,5 @@ const SKILL_COUNT_BREAKPOINT = 5
  * Specifies gap size in theme spacing units
  */
 const ITEM_GAP_SPACING = 4
-const getItemGap = (theme: Theme): string => theme.spacing(ITEM_GAP_SPACING)
 
 export default HardSkillItemList

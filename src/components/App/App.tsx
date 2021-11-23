@@ -17,17 +17,17 @@ const App = (): JSX.Element => {
     const softSkillsRef = useRef<HTMLDivElement>(null)
     const contactRef = useRef<HTMLDivElement>(null)
 
-    const getIsMobile = useCallback(
+    const getIsDesktop = useCallback(
         () => window.matchMedia(theme.breakpoints.isDesktopMediaQuery).matches,
         [theme]
     )
     const onLearnMoreClick = useCallback(
-        () => smoothScrollIntoView(aboutMeRef.current, getIsMobile),
-        [getIsMobile]
+        () => smoothScrollIntoView(aboutMeRef.current, getIsDesktop),
+        [getIsDesktop]
     )
     const onContactClick = useCallback(
-        () => smoothScrollIntoView(contactRef.current, getIsMobile),
-        [getIsMobile]
+        () => smoothScrollIntoView(contactRef.current, getIsDesktop),
+        [getIsDesktop]
     )
 
     return (
@@ -62,9 +62,9 @@ const smoothScrollIntoView = (
 
 const getScrollOptions = (getIsMobile: () => boolean): ScrollIntoViewOptions => {
     if (getIsMobile()) {
-        return { behavior: 'smooth' }
-    } else {
         return { behavior: 'smooth', block: 'center', inline: 'center' }
+    } else {
+        return { behavior: 'smooth' }
     }
 }
 
