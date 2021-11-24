@@ -50,7 +50,6 @@ const baseTheme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    minWidth: '100',
                     padding: '0.4rem 18px',
                     borderRadius: '100vmax',
                 },
@@ -74,7 +73,6 @@ const mergedTheme = createTheme(baseTheme, {
             styleOverrides: {
                 root: {
                     [baseTheme.breakpoints.up('md')]: {
-                        minWidth: 185,
                         padding: '0.5rem 25px',
                     }
                 }

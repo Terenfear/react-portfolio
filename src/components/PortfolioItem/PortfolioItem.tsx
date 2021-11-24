@@ -12,8 +12,8 @@ const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithC
         [startWithLargeArea, theme]
     )
     return (
-        <section style={{ minHeight: 'inherit' }}>
-            <Box sx={{
+        <Box component='section'
+            sx={{
                 minHeight: 'inherit',
                 display: 'grid',
                 alignItems: 'center',
@@ -29,9 +29,8 @@ const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithC
                     gridTemplateColumns: `minmax(1rem, 1fr) 1rem ${columnTemplate} 1rem minmax(1rem, 1fr)`,
                 }
             }}>
-                {children}
-            </Box>
-        </section>
+            {children}
+        </Box>
     )
 }
 

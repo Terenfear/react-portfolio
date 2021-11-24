@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useMemo } from 'react'
 import { Box, Button, styled, Typography, useTheme } from '@mui/material'
 import { useSelector } from 'react-redux'
 import PortfolioItem, { SMALL_AREA, LARGE_AREA } from '../PortfolioItem/PortfolioItem'
-import { MultilineTextTypographiesList } from '../Utils/MultilineTextTypographiesList'
+import { MultilineTextTypographiesList } from '../utils/MultilineTextTypographiesList'
 import { selectHome } from './homeSlice'
 import { useInView } from 'react-intersection-observer'
 
@@ -45,7 +45,7 @@ const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element =>
                     <Button sx={buttonSx}
                         variant='outlined'
                         onClick={onContactClicked}>
-                        Contact
+                        Contact Me
                     </Button>
                 </Box>
             </Box>
@@ -99,7 +99,7 @@ const setVideoState = (videoElement: HTMLVideoElement, isPlaying: boolean): void
     }
 }
 
-const buttonSx = { flex: '1' } as const
+const buttonSx = { flexGrow: 1 } as const
 
 const VIDEO_MOBILE_COLUMNS = '1 / -1'
 const VIDEO_DESKTOP_COLUMNS = `${SMALL_AREA}-start / -1`
