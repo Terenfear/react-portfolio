@@ -17,37 +17,23 @@ export type ContactState = {
 }
 
 const initialState: ContactState = {
-    title: 'Contact Me',
-    options: [
-        {
-            name: 'LinkedIn',
-            url: 'https://linkedin.com/',
-            icon: ContactOptionIcon.LinkedIn
-        },
-        {
-            name: 'Just mail me',
-            url: 'mailto:test@example.com'
-        }
-    ]
+    title: '',
+    options: []
 }
-
-
 
 const contactStateName = 'contact'
 const contactSlice = createSlice({
     name: contactStateName,
     initialState,
     reducers: {
-        updateContact: (_, action: PayloadAction<ContactState>) => action.payload
+        updated: (_, action: PayloadAction<ContactState>) => action.payload
     }
 })
 type RootState = {
     [contactStateName]: ContactState
 }
 const { reducer, actions } = contactSlice
-export const { updateContact } = actions
-export const contactReducer = reducer
-export default { [contactStateName]: contactReducer }
+export const contactActions = actions
 
 export const selectContactTitle =
     (rootState: RootState): string => {
@@ -59,3 +45,4 @@ export const selectContactOptions = [
     shallowEqual
 ] as const
 
+export default { [contactStateName]: reducer }
