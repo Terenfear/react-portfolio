@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import TextImagePortfolioItem from '../PortfolioItem/TextImagePortfolioItem'
-import { MultilineTextTypographiesList } from '../utils/MultilineTextTypographiesList'
+import { MultilineTextTypographiesList } from '../../utils/reactUtils'
 import HardSkillItemList from './HardSkillItemList'
 import { selectHardSkillInfo } from './hardSkillsSlice'
 

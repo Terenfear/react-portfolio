@@ -4,7 +4,7 @@ import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import TextImagePortfolioItem from '../PortfolioItem/TextImagePortfolioItem'
 import PortfolioPhoto from '../PortfolioPhoto/PortfolioPhoto'
-import { MultilineTextTypographiesList } from '../utils/MultilineTextTypographiesList'
+import { MultilineTextTypographiesList } from '../../utils/reactUtils'
 import { selectAboutMe } from './aboutMeSlice'
 
 const AboutMe = (): JSX.Element => {

@@ -1,85 +1,42 @@
-import React, { useCallback, useState, useRef } from 'react'
+import React, { useCallback, useState, useRef, PropsWithChildren, HTMLAttributes, HTMLProps, useEffect } from 'react'
 import AboutMe from '../AboutMe/AboutMe'
 import Experience from '../Experience/Experience'
 import HardSkills from '../HardSkills/HardSkills'
 import SoftSkills from '../SoftSkills/SoftSkills'
 import Contact from '../Contact/Contact'
 import Home from '../Home/Home'
-import { useTheme, Box } from '@mui/material'
+import { Box } from '@mui/material'
 import NavBar from '../NavBar/NavBar'
 import { NavBarItem } from '../NavBar/NavBarItem'
-import InViewWrapper from '../utils/InViewWrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { appStarted, selectIsLoading } from './appSlice'
+import { useAllNavItemAux } from './useAuxNavObject'
+import NavInViewWrapper from './NavInViewWrapper'
+import AppLoading from './AppLoading'
+import { AppDispatch } from '../../store'
 
 const App = (): JSX.Element => {
-    const theme = useTheme()
-
+    const isAppLoading = useSelector(selectIsLoading)
     const [visibleItem, setVisibleItem] = useState<NavBarItem>()
+    const navItemsToAuxObjs = useAllNavItemAux(smoothScrollIntoView, setVisibleItem)
 
-    const homeRef = useRef<HTMLDivElement>(null)
-    const aboutMeRef = useRef<HTMLDivElement>(null)
-    const hardSkillsRef = useRef<HTMLDivElement>(null)
-    const experienceRef = useRef<HTMLDivElement>(null)
-    const softSkillsRef = useRef<HTMLDivElement>(null)
-    const contactRef = useRef<HTMLDivElement>(null)
-
-    const onHomeClick = useCallback(() => smoothScrollIntoView(homeRef.current), [])
-    const onAboutMeClick = useCallback(() => smoothScrollIntoView(aboutMeRef.current), [])
-    const onHardSkillsClick = useCallback(() => smoothScrollIntoView(hardSkillsRef.current), [])
-    const onExperienceClick = useCallback(() => smoothScrollIntoView(experienceRef.current), [])
-    const onSoftSkillsClick = useCallback(() => smoothScrollIntoView(softSkillsRef.current), [])
-    const onContactClick = useCallback(() => smoothScrollIntoView(contactRef.current), [])
     const onNavItemClick = useCallback(
-        (navItem: NavBarItem) => {
-            switch (navItem) {
-                case (NavBarItem.Home):
-                    onHomeClick()
-                    break
-                case (NavBarItem.AboutMe):
-                    onAboutMeClick()
-                    break
-                case (NavBarItem.HardSkills):
-                    onHardSkillsClick()
-                    break
-                case (NavBarItem.Experience):
-                    onExperienceClick()
-                    break
-                case (NavBarItem.SoftSkills):
-                    onSoftSkillsClick()
-                    break
-                case (NavBarItem.Contact):
-                    onContactClick()
-                    break
-            }
-        },
-        [onAboutMeClick, onContactClick, onExperienceClick, onHardSkillsClick, onHomeClick, onSoftSkillsClick]
+        (navItem: NavBarItem) => navItemsToAuxObjs[navItem].onNavButtonClick(),
+        [navItemsToAuxObjs]
     )
 
-    const onHomeInViewChange = useCallback(
-        (inView: boolean) => { if (inView) setVisibleItem(NavBarItem.Home) },
-        []
-    )
-    const onAboutMeInViewChange = useCallback(
-        (inView: boolean) => { if (inView) setVisibleItem(NavBarItem.AboutMe) },
-        []
-    )
-    const onHardSkillsInViewChange = useCallback(
-        (inView: boolean) => { if (inView) setVisibleItem(NavBarItem.HardSkills) },
-        []
-    )
-    const onSoftSkillsInViewChange = useCallback(
-        (inView: boolean) => { if (inView) setVisibleItem(NavBarItem.SoftSkills) },
-        []
-    )
-    const onExperienceInViewChange = useCallback(
-        (inView: boolean) => { if (inView) setVisibleItem(NavBarItem.Experience) },
-        []
-    )
-    const onContactInViewChange = useCallback(
-        (inView: boolean) => { if (inView) setVisibleItem(NavBarItem.Contact) },
-        []
-    )
+    const homeAuxObj = navItemsToAuxObjs[NavBarItem.Home]
+    const aboutMeAuxObj = navItemsToAuxObjs[NavBarItem.AboutMe]
+    const hardSkillsAuxObj = navItemsToAuxObjs[NavBarItem.HardSkills]
+    const softSkillsAuxObj = navItemsToAuxObjs[NavBarItem.SoftSkills]
+    const experienceAuxObj = navItemsToAuxObjs[NavBarItem.Experience]
+    const contactAuxObj = navItemsToAuxObjs[NavBarItem.Contact]
 
-    return (
+    const dispatch = useDispatch<AppDispatch>()
+    useEffect(() => { dispatch(appStarted()) }, [dispatch])
+
+    return isAppLoading ?
+        <AppLoading /> :
         <>
             <NavBar onItemClick={onNavItemClick}
                 selectedItem={visibleItem} />
@@ -91,37 +48,30 @@ const App = (): JSX.Element => {
                     bgcolor: 'background.paper'
                 }
             }}>
-                <InViewWrapper
-                    onInViewChange={onHomeInViewChange}
-                    ref={homeRef}
+                <NavInViewWrapper
+                    auxNavObj={homeAuxObj}
                     style={{ minHeight: '100vh' }}>
                     <Home
-                        onLearnMoreClick={onAboutMeClick}
-                        onContactClicked={onContactClick} />
-                </InViewWrapper>
-                <InViewWrapper onInViewChange={onAboutMeInViewChange}
-                    ref={aboutMeRef}>
+                        onLearnMoreClick={aboutMeAuxObj.onNavButtonClick}
+                        onContactClicked={contactAuxObj.onNavButtonClick} />
+                </NavInViewWrapper>
+                <NavInViewWrapper auxNavObj={aboutMeAuxObj}>
                     <AboutMe />
-                </InViewWrapper>
-                <InViewWrapper onInViewChange={onHardSkillsInViewChange}
-                    ref={hardSkillsRef}>
+                </NavInViewWrapper>
+                <NavInViewWrapper auxNavObj={hardSkillsAuxObj}>
                     <HardSkills />
-                </InViewWrapper>
-                <InViewWrapper onInViewChange={onSoftSkillsInViewChange}
-                    ref={softSkillsRef}>
+                </NavInViewWrapper>
+                <NavInViewWrapper auxNavObj={softSkillsAuxObj}>
                     <SoftSkills />
-                </InViewWrapper>
-                <InViewWrapper onInViewChange={onExperienceInViewChange}
-                    ref={experienceRef}>
+                </NavInViewWrapper>
+                <NavInViewWrapper auxNavObj={experienceAuxObj}>
                     <Experience />
-                </InViewWrapper>
-                <InViewWrapper onInViewChange={onContactInViewChange}
-                    ref={contactRef}>
+                </NavInViewWrapper>
+                <NavInViewWrapper auxNavObj={contactAuxObj}>
                     <Contact />
-                </InViewWrapper>
+                </NavInViewWrapper>
             </Box>
         </>
-    )
 }
 
 const smoothScrollIntoView = (element: HTMLElement | null | undefined): unknown => {

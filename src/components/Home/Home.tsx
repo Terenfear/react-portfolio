@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useMemo } from 'react'
 import { Box, Button, styled, Typography, useTheme } from '@mui/material'
 import { useSelector } from 'react-redux'
 import PortfolioItem, { SMALL_AREA, LARGE_AREA } from '../PortfolioItem/PortfolioItem'
-import { MultilineTextTypographiesList } from '../utils/MultilineTextTypographiesList'
+import { MultilineTextTypographiesList } from '../../utils/reactUtils'
 import { selectHome } from './homeSlice'
 import { useInView } from 'react-intersection-observer'
 

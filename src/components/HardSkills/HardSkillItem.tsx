@@ -3,14 +3,15 @@ import React, { memo, useMemo } from 'react'
 import withBackground from '../CircularProgressHOCs/withBackground'
 import withLabel from '../CircularProgressHOCs/withLabel'
 import withStyledSvg from '../CircularProgressHOCs/withStyledSvg'
+import { CircularProgressWithRoundCaps } from '../utils/CircularProgressWithRoundCaps'
 
 export interface HardSkillItemProps {
     label: string,
     progress: number
 }
 
-const CircularProgressLongAnimation = withStyledSvg({ transitionDuration: '1000ms' })(CircularProgress)
-const CircularProgressWithRoundCaps = withStyledSvg({ strokeLinecap: 'round' })(CircularProgressLongAnimation)
+const CircularProgressLongAnimation =
+    withStyledSvg({ transitionDuration: '1000ms' })(CircularProgressWithRoundCaps)
 
 const HardSkillItem = (props: HardSkillItemProps): JSX.Element => {
     const theme = useTheme()
@@ -18,7 +19,7 @@ const HardSkillItem = (props: HardSkillItemProps): JSX.Element => {
 
     const progressBgColor = theme.palette.primary.contrastText
     const CircularProgressWithBackground = useMemo(
-        () => withBackground(progressBgColor)(CircularProgressWithRoundCaps),
+        () => withBackground(progressBgColor)(CircularProgressLongAnimation),
         [progressBgColor]
     )
     const CircularProgressWithLabel = useMemo(
