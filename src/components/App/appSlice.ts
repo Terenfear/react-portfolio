@@ -14,7 +14,7 @@ export type AppState = {
 }
 
 const initialState: AppState = {
-    isLoading: false
+    isLoading: true
 }
 
 const appSliceName = 'app'
