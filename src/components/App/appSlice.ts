@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { batch } from 'react-redux'
 import backendApi from '../../backendApi'
 import { AppThunk, RootState } from '../../store'

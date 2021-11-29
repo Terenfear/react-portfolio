@@ -42,10 +42,10 @@ const App = (): JSX.Element => {
 
 const MemoizedAppBody = React.memo(AppBody)
 
-const smoothScrollIntoView = (element: HTMLElement | null | undefined): unknown => {
+const smoothScrollIntoView = (element: HTMLElement | null | undefined): void => {
     if (!element) return
     const options = getScrollOptions(element)
-    return element.scrollIntoView(options)
+    element.scrollIntoView(options)
 }
 
 const getScrollOptions = (target: HTMLElement): ScrollIntoViewOptions => {
