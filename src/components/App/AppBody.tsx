@@ -12,7 +12,7 @@ import { styled } from '@mui/system'
 
 export interface AppBodyProps {
     navRefsMap: Record<NavBarItem, React.RefObject<HTMLDivElement>>,
-    onInViewItemChange: (item: NavBarItem) => void,
+    onInViewItemChange: (item: NavBarItem, inView: boolean) => void,
     onLearnMoreClick: () => void,
     onContactClicked: () => void
 }

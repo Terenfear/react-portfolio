@@ -35,18 +35,15 @@ const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithC
 }
 
 const getContentTemplates = (startWithLargeArea: boolean, contentGapPx: string): { areaTemplate: string, columnTemplate: string } => {
-    let areas
-    let columns
-    if (startWithLargeArea) {
-        areas = [LARGE_AREA, SMALL_AREA]
-        columns = ['minmax(auto, 2.67fr)', 'minmax(auto, 1.33fr)']
-    } else {
-        areas = [SMALL_AREA, LARGE_AREA]
-        columns = ['minmax(auto, 1.33fr)', 'minmax(auto, 2.67fr)']
+    const areas = [LARGE_AREA, '.', SMALL_AREA]
+    const columns = ['minmax(auto, 2.67fr)', contentGapPx, 'minmax(auto, 1.33fr)']
+    if (!startWithLargeArea) {
+        areas.reverse()
+        columns.reverse()
     }
     return {
-        areaTemplate: areas.join(' . '),
-        columnTemplate: columns.join(` ${contentGapPx} `)
+        areaTemplate: areas.join(' '),
+        columnTemplate: columns.join(' ')
     }
 }
 

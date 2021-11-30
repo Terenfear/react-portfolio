@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useMemo } from 'react'
 import NavBar from '../NavBar/NavBar'
 import { NavBarItem } from '../NavBar/NavBarItem'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,7 +10,22 @@ import AppBody from './AppBody'
 
 const App = (): JSX.Element => {
     const isAppLoading = useSelector(selectIsLoading)
-    const [visibleItem, setVisibleItem] = useState<NavBarItem>()
+    const [visibleItemSet, setVisibleItemSet] = useState<Set<NavBarItem>>(new Set())
+    const updateVisibleItemSet = useCallback(
+        (item: NavBarItem, inView: boolean) =>
+            setVisibleItemSet(currentSet => {
+                const newSet = new Set(currentSet)
+                if (inView) {
+                    newSet.add(item)
+                } else {
+                    newSet.delete(item)
+                }
+                return newSet
+            }),
+        []
+    )
+    // The last added visible item is considered main.
+    const mainVisibleItem = useMemo(() => last(visibleItemSet.values()), [visibleItemSet])
     const navRefsMap = useNavRefsMap()
     const onNavItemClick = useCallback(
         (navItem: NavBarItem) => smoothScrollIntoView(navRefsMap[navItem].current),
@@ -31,16 +46,17 @@ const App = (): JSX.Element => {
     return isAppLoading ?
         <AppLoading /> :
         <>
-            <NavBar onItemClick={onNavItemClick}
-                selectedItem={visibleItem} />
+            <MemoizedNavBar onItemClick={onNavItemClick}
+                selectedItem={mainVisibleItem} />
             <MemoizedAppBody navRefsMap={navRefsMap}
-                onInViewItemChange={setVisibleItem}
+                onInViewItemChange={updateVisibleItemSet}
                 onLearnMoreClick={onLearnMoreClick}
                 onContactClicked={onContactMeClick} />
         </>
 }
 
 const MemoizedAppBody = React.memo(AppBody)
+const MemoizedNavBar = React.memo(NavBar)
 
 const smoothScrollIntoView = (element: HTMLElement | null | undefined): void => {
     if (!element) return
@@ -56,6 +72,16 @@ const getScrollOptions = (target: HTMLElement): ScrollIntoViewOptions => {
             inline: 'center'
         })
     }
+}
+
+function last<T>(iterator: Iterator<T>): T | undefined {
+    let result = iterator.next()
+    let value
+    while (!result.done) {
+        value = result.value
+        result = iterator.next()
+    }
+    return value
 }
 
 export default App

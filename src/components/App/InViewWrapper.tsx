@@ -5,13 +5,17 @@ import { NavBarItem } from '../NavBar/NavBarItem'
 
 export interface InViewWrapperProps extends PropsOf<'div'> {
     navBarItem: NavBarItem,
-    onInViewItemChange: (itemInView: NavBarItem) => void
+    onInViewItemChange: (item: NavBarItem, inView: boolean) => void
 }
 const InViewWrapper = React.forwardRef<HTMLDivElement, PropsWithChildren<InViewWrapperProps>>((props, ref) => {
     const { navBarItem, onInViewItemChange, children, ...otherProps } = props
-    const [setInViewRef, inView] = useInView({ threshold: 0.5 })
+    // Watch a tiny horizontal line in the middle of the viewport. A child is
+    // considered 'in view' if it intersects with this line. Even though the
+    // line is quite small, it's possible to have multiple items being in view
+    // simultaneously.
+    const [setInViewRef, inView] = useInView({ rootMargin: '-49% 0px' })
     useEffect(
-        () => { if (inView) onInViewItemChange(navBarItem) },
+        () => { onInViewItemChange(navBarItem, inView) },
         [navBarItem, onInViewItemChange, inView]
     )
     const setCombinedRef = useCallback(
