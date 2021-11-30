@@ -1,71 +1,87 @@
-import React, { useCallback, useRef } from 'react'
-import AboutMe from '../AboutMe/AboutMe'
-import Experience from '../Experience/Experience'
-import HardSkills from '../HardSkills/HardSkills'
-import SoftSkills from '../SoftSkills/SoftSkills'
-import Contact from '../Contact/Contact'
-import Home from '../Home/Home'
-import { useTheme, Box } from '@mui/material'
+import React, { useCallback, useState, useEffect, useMemo } from 'react'
+import NavBar from '../NavBar/NavBar'
+import { NavBarItem } from '../NavBar/NavBarItem'
+import { useDispatch, useSelector } from 'react-redux'
+import { appStarted, selectIsLoading } from './appSlice'
+import AppLoading from './AppLoading'
+import { AppDispatch } from '../../store'
+import { useNavRefsMap } from './hooks'
+import AppBody from './AppBody'
 
 const App = (): JSX.Element => {
-    const theme = useTheme()
-
-    const homeRef = useRef<HTMLDivElement>(null)
-    const aboutMeRef = useRef<HTMLDivElement>(null)
-    const hardSkillsRef = useRef<HTMLDivElement>(null)
-    const experienceRef = useRef<HTMLDivElement>(null)
-    const softSkillsRef = useRef<HTMLDivElement>(null)
-    const contactRef = useRef<HTMLDivElement>(null)
-
-    const getIsDesktop = useCallback(
-        () => window.matchMedia(theme.breakpoints.isDesktopMediaQuery).matches,
-        [theme]
+    const isAppLoading = useSelector(selectIsLoading)
+    const [visibleItemSet, setVisibleItemSet] = useState<Set<NavBarItem>>(new Set())
+    const updateVisibleItemSet = useCallback(
+        (item: NavBarItem, inView: boolean) =>
+            setVisibleItemSet(currentSet => {
+                const newSet = new Set(currentSet)
+                if (inView) {
+                    newSet.add(item)
+                } else {
+                    newSet.delete(item)
+                }
+                return newSet
+            }),
+        []
+    )
+    // The last added visible item is considered main.
+    const mainVisibleItem = useMemo(() => last(visibleItemSet.values()), [visibleItemSet])
+    const navRefsMap = useNavRefsMap()
+    const onNavItemClick = useCallback(
+        (navItem: NavBarItem) => smoothScrollIntoView(navRefsMap[navItem].current),
+        [navRefsMap]
     )
     const onLearnMoreClick = useCallback(
-        () => smoothScrollIntoView(aboutMeRef.current, getIsDesktop),
-        [getIsDesktop]
+        () => smoothScrollIntoView(navRefsMap[NavBarItem.AboutMe].current),
+        [navRefsMap]
     )
-    const onContactClick = useCallback(
-        () => smoothScrollIntoView(contactRef.current, getIsDesktop),
-        [getIsDesktop]
+    const onContactMeClick = useCallback(
+        () => smoothScrollIntoView(navRefsMap[NavBarItem.Contact].current),
+        [navRefsMap]
     )
 
-    return (
-        <Box sx={{
-            ['& > *:not(:first-child)']: {
-                py: 6
-            },
-            ['& > *:nth-child(odd)']: {
-                bgcolor: 'background.paper'
-            }
-        }}>
-            <div ref={homeRef}
-                style={{ minHeight: '100vh' }}>
-                <Home
-                    onLearnMoreClick={onLearnMoreClick}
-                    onContactClicked={onContactClick} />
-            </div>
-            <div ref={aboutMeRef}><AboutMe /></div>
-            <div ref={hardSkillsRef}><HardSkills /></div>
-            <div ref={experienceRef}><Experience /></div>
-            <div ref={softSkillsRef}><SoftSkills /></div>
-            <div ref={contactRef}><Contact /></div>
-        </Box>
-    )
+    const dispatch = useDispatch<AppDispatch>()
+    useEffect(() => { dispatch(appStarted()) }, [dispatch])
+
+    return isAppLoading ?
+        <AppLoading /> :
+        <>
+            <MemoizedNavBar onItemClick={onNavItemClick}
+                selectedItem={mainVisibleItem} />
+            <MemoizedAppBody navRefsMap={navRefsMap}
+                onInViewItemChange={updateVisibleItemSet}
+                onLearnMoreClick={onLearnMoreClick}
+                onContactClicked={onContactMeClick} />
+        </>
 }
 
-const smoothScrollIntoView = (
-    element: HTMLElement | null | undefined,
-    getIsDesktop: () => boolean
-): unknown =>
-    element?.scrollIntoView(getScrollOptions(getIsDesktop))
+const MemoizedAppBody = React.memo(AppBody)
+const MemoizedNavBar = React.memo(NavBar)
 
-const getScrollOptions = (getIsDesktop: () => boolean): ScrollIntoViewOptions => {
-    if (getIsDesktop()) {
-        return { behavior: 'smooth', block: 'center', inline: 'center' }
-    } else {
-        return { behavior: 'smooth' }
+const smoothScrollIntoView = (element: HTMLElement | null | undefined): void => {
+    if (!element) return
+    const options = getScrollOptions(element)
+    element.scrollIntoView(options)
+}
+
+const getScrollOptions = (target: HTMLElement): ScrollIntoViewOptions => {
+    return {
+        behavior: 'smooth',
+        ...(target.clientHeight < window.innerHeight && {
+            block: 'center',
+            inline: 'center'
+        })
     }
+}
+
+function last<T>(iterator: Iterator<T>): T | undefined {
+    let result = iterator.next()
+    let value
+    while (!result.done) {
+        value = result.value
+        result = iterator.next()
+    }
+    return value
 }
 
 export default App

@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useMemo } from 'react'
 import { Box, Button, styled, Typography, useTheme } from '@mui/material'
 import { useSelector } from 'react-redux'
 import PortfolioItem, { SMALL_AREA, LARGE_AREA } from '../PortfolioItem/PortfolioItem'
-import { MultilineTextTypographiesList } from '../Utils/MultilineTextTypographiesList'
+import { MultilineTextTypographiesList } from '../../utils/reactUtils'
 import { selectHome } from './homeSlice'
 import { useInView } from 'react-intersection-observer'
 
@@ -37,16 +37,14 @@ const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element =>
                         display: 'inline-flex'
                     }
                 }}>
-                    <Button sx={buttonSx}
-                        variant='contained'
+                    <StyledButton variant='contained'
                         onClick={onLearnMoreClick}>
                         Learn More
-                    </Button>
-                    <Button sx={buttonSx}
-                        variant='outlined'
+                    </StyledButton>
+                    <StyledButton variant='outlined'
                         onClick={onContactClicked}>
-                        Contact
-                    </Button>
+                        Contact Me
+                    </StyledButton>
                 </Box>
             </Box>
             <Box sx={{
@@ -91,6 +89,10 @@ const StyledVideo = styled('video')(({ theme }) => ({
     }
 }))
 
+const StyledButton = styled(Button)({
+    flexGrow: 1
+})
+
 const setVideoState = (videoElement: HTMLVideoElement, isPlaying: boolean): void => {
     if (isPlaying) {
         videoElement.play()
@@ -98,8 +100,6 @@ const setVideoState = (videoElement: HTMLVideoElement, isPlaying: boolean): void
         videoElement.pause()
     }
 }
-
-const buttonSx = { flex: '1' } as const
 
 const VIDEO_MOBILE_COLUMNS = '1 / -1'
 const VIDEO_DESKTOP_COLUMNS = `${SMALL_AREA}-start / -1`

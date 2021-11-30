@@ -23,41 +23,11 @@ export type ExperienceState = {
 
 const initialState: ExperienceState = {
     info: {
-        title: 'Education & Experience',
-        photoUrl: 'https://i1.sndcdn.com/avatars-000288873036-ix0cdf-t500x500.jpg',
-        photoAlt: "Hackerman, though it's not me"
+        title: '',
+        photoUrl: '',
+        photoAlt: ''
     },
-    periods: [
-        {
-            id: '6b701b02-7d2f-4c51-b687-e9a7edcdeda1',
-            period: {
-                from: 'September, 2014',
-                to: 'July, 2018'
-            },
-            title: 'Belarusian State University of Informatics and Radioelectronics',
-            link: 'https://www.bsuir.by/en/',
-            description: 'Cupidatat laborum quis ipsum commodo id aute consectetur et labore. Cillum consequat qui et officia veniam consectetur tempor. Mollit magna voluptate proident minim cillum tempor laboris irure. Magna labore ea labore minim ut officia.'
-        },
-        {
-            id: '296460ad-77bb-4bc1-be8e-686dbd9f3379',
-            period: {
-                from: 'June, 2017',
-                to: 'June, 2021'
-            },
-            title: 'Yellow',
-            link: 'https://yellow.systems/',
-            description: 'Cupidatat laborum quis ipsum commodo id aute consectetur et labore. Mollit magna voluptate proident minim cillum tempor laboris irure. Magna labore ea labore minim ut officia.'
-        },
-        {
-            id: 'e6357676-6584-4bff-84f8-3901d1e3be62',
-            period: {
-                from: 'September, 2021',
-                to: 'Now'
-            },
-            title: 'Self-education',
-            description: 'Cupidatat laborum quis ipsum commodo id aute consectetur et labore. Cillum consequat qui et officia veniam consectetur tempor. Magna labore ea labore minim ut officia.'
-        },
-    ]
+    periods: []
 }
 
 const experienceStateName = 'experience'
@@ -65,7 +35,7 @@ const experienceSlice = createSlice({
     name: experienceStateName,
     initialState,
     reducers: {
-        updateExperience: (_, action: PayloadAction<ExperienceState>) => action.payload
+        updated: (_, action: PayloadAction<ExperienceState>) => action.payload
     }
 })
 type RootState = {
@@ -73,9 +43,7 @@ type RootState = {
 }
 
 const { reducer, actions } = experienceSlice
-export const { updateExperience } = actions
-export const experienceReducer = reducer
-export default { [experienceStateName]: experienceReducer }
+export const experienceActions = actions
 
 export const selectExperienceInfo =
     (rootState: RootState): ExperienceInfo => rootState.experience.info
@@ -84,3 +52,5 @@ export const selectExperiencePeriods = [
     _selectExperiencePeriods,
     shallowEqual
 ] as const
+
+export default { [experienceStateName]: reducer }

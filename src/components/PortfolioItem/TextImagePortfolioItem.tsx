@@ -13,7 +13,11 @@ const TextImagePortfolioItem = (props: TextImagePortfolioItemProps): JSX.Element
         <PortfolioItem {...portItemProps}
             startWithLargeArea={startWithText}>
             <div style={{ gridArea: LARGE_AREA }}>{textAreaChildren}</div>
-            <div style={{ gridArea: SMALL_AREA }}>{imageAreaChildren}</div>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gridArea: SMALL_AREA
+            }}>{imageAreaChildren}</div>
         </PortfolioItem>
     )
 }
