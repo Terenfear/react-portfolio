@@ -16,12 +16,12 @@ const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element =>
     const { title, subtitle, videoUrl } = useSelector(selectHome)
 
     return (
-        <PortfolioItem>
+        <PortfolioItem disableVerticalPadding={true}>
             <Box sx={{
                 gridArea: LARGE_AREA,
-                pb: 6,
+                pb: (t) => t.sizes.itemPaddingVertical,
                 [theme.breakpoints.isDesktopCSSMediaQuery]: {
-                    pt: 6
+                    pt: (t) => t.sizes.itemPaddingVertical
                 }
             }}>
                 <Typography variant='h1' mb={5}>{title}</Typography>

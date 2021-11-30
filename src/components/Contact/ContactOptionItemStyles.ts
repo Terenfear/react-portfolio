@@ -6,7 +6,7 @@ export const HOVER_TRANSITION_DURATION_MS = 300
 
 export const HOVER_SELECTORS = {
     [`&:hover .${TEXT_LINK_CLASS}, &:focus .${TEXT_LINK_CLASS}`]: {
-        textDecorationColor: 'inherit'
+        textDecoration: 'underline'
     },
     [`&:hover .${BUTTON_CLASS}, &:focus .${BUTTON_CLASS}`]: {
         color: 'common.white'

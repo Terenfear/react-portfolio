@@ -9,6 +9,7 @@ import Contact from '../Contact/Contact'
 import { NavBarItem } from '../NavBar/NavBarItem'
 import InViewWrapper from './InViewWrapper'
 import { styled } from '@mui/system'
+import Credits from '../Credits'
 
 export interface AppBodyProps {
     navRefsMap: Record<NavBarItem, React.RefObject<HTMLDivElement>>,
@@ -38,9 +39,6 @@ const AppBody = (props: AppBodyProps): JSX.Element => {
     )
     return (
         <Box sx={{
-            ['& > *:not(:first-child)']: {
-                py: 6
-            },
             ['& > *:nth-child(odd)']: {
                 bgcolor: 'background.paper'
             }
@@ -60,6 +58,7 @@ const AppBody = (props: AppBodyProps): JSX.Element => {
                         )
                     })
             }
+            <Credits />
         </Box>
     )
 }

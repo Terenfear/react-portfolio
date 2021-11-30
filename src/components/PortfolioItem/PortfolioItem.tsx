@@ -2,10 +2,12 @@ import { Box, useTheme } from '@mui/material'
 import React, { useMemo } from 'react'
 
 export interface PortfolioItemProps {
-    startWithLargeArea?: boolean
+    startWithLargeArea?: boolean,
+    disableVerticalPadding?: boolean
 }
 
-const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithChildren<PortfolioItemProps>): JSX.Element => {
+const PortfolioItem = (props: React.PropsWithChildren<PortfolioItemProps>): JSX.Element => {
+    const { startWithLargeArea = true, disableVerticalPadding = false, children } = props
     const theme = useTheme()
     const { areaTemplate, columnTemplate } = useMemo(
         () => getContentTemplates(startWithLargeArea, theme.spacing(8)),
@@ -23,6 +25,7 @@ const PortfolioItem = ({ startWithLargeArea = true, children }: React.PropsWithC
             `,
                 gridTemplateColumns: 'minmax(1rem, 5fr) 1rem minmax(auto, 90fr) 1rem minmax(1rem, 5fr)',
                 rowGap: 4,
+                ...(!disableVerticalPadding && { py: (t) => t.sizes.itemPaddingVertical }),
                 [theme.breakpoints.isDesktopCSSMediaQuery]: {
                     rowGap: 0,
                     gridTemplateAreas: `'startMargin ${START_GAP} ${areaTemplate} ${END_GAP} endMargin'`,

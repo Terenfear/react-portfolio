@@ -61,6 +61,9 @@ const baseTheme = createTheme({
                 }
             }
         }
+    },
+    sizes: {
+        itemPaddingVertical: 6
     }
 })
 

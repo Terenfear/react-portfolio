@@ -1,19 +1,14 @@
-import { Box, BoxProps, createSvgIcon, SvgIconProps, Theme, Typography, useTheme } from '@mui/material'
+import EmailIcon from '@mui/icons-material/Email'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import { Box, BoxProps, SvgIconProps, Typography, useTheme } from '@mui/material'
 import { alpha } from '@mui/system'
 import React, { useCallback } from 'react'
-import { ReactComponent as LinkedInIcon } from './linkedin.svg'
-import EmailIcon from '@mui/icons-material/Email'
-import { ContactOption, ContactOptionIcon } from './contactSlice'
-import {
-    BUTTON_CLASS,
-    HOVER_SELECTORS,
-    HOVER_TRANSITION_DURATION_MS,
-    HOVER_EFFECT_STYLE,
-    PULSE_EFFECT_STYLE,
-    PULSE_ANIMATION,
-    TEXT_LINK_CLASS
-} from './ContactOptionItemStyles'
 import { asObjectOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
+import {
+    BUTTON_CLASS, HOVER_EFFECT_STYLE, HOVER_SELECTORS,
+    HOVER_TRANSITION_DURATION_MS, PULSE_ANIMATION, PULSE_EFFECT_STYLE, TEXT_LINK_CLASS
+} from './ContactOptionItemStyles'
+import { ContactOption, ContactOptionIcon } from './contactSlice'
 
 const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
     const theme = useTheme()
@@ -80,8 +75,7 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
                         }} />
                 </Box>
                 <Typography variant='h6' sx={{
-                    textDecoration: 'underline',
-                    textDecorationColor: (t) => alpha(t.palette.text.secondary, 0.4)
+                    textDecoration: 'none'
                 }}
                     className={TEXT_LINK_CLASS}>{name}</Typography>
             </Box>
@@ -94,7 +88,7 @@ const Icon = (props: { iconType?: ContactOptionIcon } & SvgIconProps): JSX.Eleme
     let Component: React.FC
     switch (iconType) {
         case (ContactOptionIcon.LinkedIn):
-            Component = createSvgIcon(<LinkedInIcon />, iconType)
+            Component = LinkedInIcon
             break
         default:
             Component = EmailIcon
