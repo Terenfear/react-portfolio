@@ -59,15 +59,14 @@ const Icon: React.FC<{ iconType: SoftSkillIcon } & SvgIconProps> = (
 ) => {
     let Component: React.FC
     switch (iconType) {
-        case (SoftSkillIcon.Devices):
-            Component = ImportantDevicesIcon
-            break
         case (SoftSkillIcon.Communication):
             Component = ForumIcon
             break
         case (SoftSkillIcon.Language):
             Component = TranslateIcon
             break
+        default:
+            Component = ImportantDevicesIcon
     }
     return <Component {...svgIconProps} />
 
