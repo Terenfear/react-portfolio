@@ -1,10 +1,10 @@
 import { AppBar, Slide, Toolbar, useScrollTrigger } from '@mui/material'
 import React from 'react'
+import { NavBarProps } from '.'
 import GitHubButton from '../GitHubButton'
 import InnerNavBar from './InnerNavBar'
-import { NavBarProps } from './NavBar'
 
-const DesktopNavBar = (props: NavBarProps): JSX.Element => {
+const DesktopNavBar: React.FC<NavBarProps> = (props) => {
     const scrolledDown = useScrollTrigger()
     return (
         <>

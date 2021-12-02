@@ -3,7 +3,7 @@ import { Box, Link, Typography } from '@mui/material'
 import React from 'react'
 import GitHubButton from './GitHubButton'
 
-const Credits = (): JSX.Element => (
+const Credits: React.FC = () => (
     <Box p={1}
         textAlign='end'>
         <Typography variant='caption'>

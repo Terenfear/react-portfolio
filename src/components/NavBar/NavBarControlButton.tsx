@@ -1,9 +1,9 @@
-import React from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Fab, FabProps, Slide, useScrollTrigger } from '@mui/material'
+import React from 'react'
 
 
-const NavBarControlButton = (props: FabProps): JSX.Element => {
+const NavBarControlButton: React.FC<FabProps> = (props) => {
     const scrolledDown = useScrollTrigger()
     return (
         <Slide in={!scrolledDown}>

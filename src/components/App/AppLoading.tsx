@@ -1,8 +1,8 @@
 import { Stack } from '@mui/material'
 import React from 'react'
-import { CircularProgressWithRoundCaps } from '../utils/CircularProgressWithRoundCaps'
+import { CircularProgressWithRoundCaps } from '../CircularProgressHOCs/withStyledSvg'
 
-const AppLoading = (): JSX.Element => {
+const AppLoading: React.FC = () => {
     return (
         <Stack sx={{
             height: '100vh',

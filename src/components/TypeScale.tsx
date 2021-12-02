@@ -3,7 +3,7 @@ import React from 'react'
 
 const placeholder = 'Ut excepteur incididunt exercitation sunt deserunt ut aliquip laborum eu.'
 
-const TypeScale = (): JSX.Element => {
+const TypeScale: React.FC = () => {
     return (
         <div>
             <Typography variant='h1'>{'h1 ' + placeholder}</Typography>

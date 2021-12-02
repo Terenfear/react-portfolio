@@ -1,49 +1,51 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Box, Link, styled, Typography } from '@mui/material'
 import React from 'react'
 import { ExperiencePeriod } from './experienceSlice'
 import { ReactComponent as TimelineDot } from './timeline-dot.svg'
 
-const ExperienceItem = (props: ExperiencePeriod & { isLast: boolean }): JSX.Element => {
-    const { period, title, link, description, isLast } = props
-    return (
-        <Box sx={{
-            display: 'grid',
-            gridTemplateAreas: `
+const ExperienceItem: React.FC<ExperiencePeriod & { isLast: boolean }> =
+    (props) => {
+        const { period, title, link, description, isLast } = props
+        return (
+            <Box sx={{
+                display: 'grid',
+                gridTemplateAreas: `
                 '${DOT} ${PERIOD}'
                 '${CONNECTOR} ${DESCRIPTION}'
             `,
-            gridTemplateColumns: (t) => `${t.spacing(4.5)} auto`,
-            alignItems: 'center',
-            columnGap: (t) => t.spacing(2)
-        }}>
-            <TimelineDot style={{ gridArea: DOT }} />
-            <Typography sx={{
-                gridArea: PERIOD,
-                color: 'primary.main'
+                gridTemplateColumns: (t) => `${t.spacing(4.5)} auto`,
+                alignItems: 'center',
+                columnGap: (t) => t.spacing(2)
             }}>
-                {`${period.from} - ${period.to}`}
-            </Typography>
-            <Connector style={{ gridArea: CONNECTOR }} />
-            <Box style={{ gridArea: DESCRIPTION }}
-                mb={isLast ? 0 : 3}
-                mt={1}>
-                {link ?
-                    <Link variant='h4'
-                        color='text.secondary'
-                        role='heading'
-                        aria-level={4}
-                        mb={2}
-                        display='block'
-                        href={link}>
-                        {title}
-                    </Link> :
-                    <Typography variant='h4' mb={2}>{title}</Typography>
-                }
-                <Typography variant='subtitle1'>{description}</Typography>
+                <TimelineDot style={{ gridArea: DOT }} />
+                <Typography sx={{
+                    gridArea: PERIOD,
+                    color: 'primary.main'
+                }}>
+                    {`${period.from} - ${period.to}`}
+                </Typography>
+                <Connector style={{ gridArea: CONNECTOR }} />
+                <Box style={{ gridArea: DESCRIPTION }}
+                    mb={isLast ? 0 : 3}
+                    mt={1}>
+                    {link ?
+                        <Link variant='h4'
+                            color='text.secondary'
+                            role='heading'
+                            aria-level={4}
+                            mb={2}
+                            display='block'
+                            href={link}>
+                            {title}
+                        </Link> :
+                        <Typography variant='h4' mb={2}>{title}</Typography>
+                    }
+                    <Typography variant='subtitle1'>{description}</Typography>
+                </Box>
             </Box>
-        </Box>
-    )
-}
+        )
+    }
 
 const Connector = styled('div')(({ theme }) => ({
     width: 0,

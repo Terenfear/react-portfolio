@@ -9,7 +9,7 @@ export interface NavBarProps {
     selectedItem?: NavBarItem
 }
 
-const NavBar = (props: NavBarProps): JSX.Element => {
+const NavBar: React.FC<NavBarProps> = (props) => {
     const isDesktop = useIsDesktop()
     return isDesktop ?
         <DesktopNavBar {...props} /> :

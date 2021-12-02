@@ -1,7 +1,7 @@
 import { Slide } from '@mui/material'
 import React from 'react'
 import { useInView } from 'react-intersection-observer'
-import PortfolioItem, { SMALL_AREA, PortfolioItemProps, LARGE_AREA } from './PortfolioItem'
+import PortfolioItem, { LARGE_AREA, PortfolioItemProps, SMALL_AREA } from './PortfolioItem'
 
 export interface TextImagePortfolioItemProps extends Omit<PortfolioItemProps, 'startWithLargeArea'> {
     textAreaChildren: React.ReactNode,
@@ -9,7 +9,7 @@ export interface TextImagePortfolioItemProps extends Omit<PortfolioItemProps, 's
     startWithText?: boolean
 }
 
-const TextImagePortfolioItem = (props: TextImagePortfolioItemProps): JSX.Element => {
+const TextImagePortfolioItem: React.FC<TextImagePortfolioItemProps> = (props) => {
     const { textAreaChildren, imageAreaChildren, startWithText = true, ...portItemProps } = props
     const [ref, inView] = useInView({ rootMargin: '-15% 0px', triggerOnce: true })
     return (

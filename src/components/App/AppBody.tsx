@@ -1,15 +1,15 @@
 import { Box } from '@mui/material'
-import React, { useMemo } from 'react'
-import Home from '../Home/Home'
-import AboutMe from '../AboutMe/AboutMe'
-import HardSkills from '../HardSkills/HardSkills'
-import SoftSkills from '../SoftSkills/SoftSkills'
-import Experience from '../Experience/Experience'
-import Contact from '../Contact/Contact'
-import { NavBarItem } from '../NavBar/NavBarItem'
-import InViewWrapper from './InViewWrapper'
 import { styled } from '@mui/system'
+import React, { useMemo } from 'react'
+import AboutMe from '../AboutMe'
+import Contact from '../Contact'
 import Credits from '../Credits'
+import Experience from '../Experience'
+import HardSkills from '../HardSkills'
+import Home from '../Home'
+import { NavBarItem } from '../NavBar/NavBarItem'
+import SoftSkills from '../SoftSkills'
+import InViewWrapper from './InViewWrapper'
 
 export interface AppBodyProps {
     navRefsMap: Record<NavBarItem, React.RefObject<HTMLDivElement>>,
@@ -18,8 +18,9 @@ export interface AppBodyProps {
     onContactClicked: () => void
 }
 
-const AppBody = (props: AppBodyProps): JSX.Element => {
-    const { navRefsMap, onInViewItemChange, onLearnMoreClick, onContactClicked } = props
+const AppBody: React.FC<AppBodyProps> = (
+    { navRefsMap, onInViewItemChange, onLearnMoreClick, onContactClicked }
+) => {
     const navBarItemToComponent: Record<NavBarItem, JSX.Element> = useMemo(
         () => ({
             [NavBarItem.Home]: (

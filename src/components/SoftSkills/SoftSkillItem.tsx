@@ -1,14 +1,16 @@
-import { Box, BoxProps, SvgIconProps, Typography, useTheme } from '@mui/material'
-import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import ForumIcon from '@mui/icons-material/Forum'
+import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices'
 import TranslateIcon from '@mui/icons-material/Translate'
+import { Box, BoxProps, SvgIconProps, Typography, useTheme } from '@mui/material'
 import React from 'react'
-import { SoftSkill, SoftSkillIcon } from './softSkillsSlice'
 import { asRecordOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
+import { SoftSkill, SoftSkillIcon } from './softSkillsSlice'
 
-const SoftSkillItem = (props: SoftSkill & BoxProps): JSX.Element => {
+const SoftSkillItem: React.FC<SoftSkill & BoxProps> = (
+    { name, description, icon, ...boxProps }
+) => {
     const theme = useTheme()
-    const { name, description, icon, ...boxProps } = props
 
     const desktopMediaQuery = theme.breakpoints.isDesktopCSSMediaQuery
     const oldDMQ = boxProps.sx &&
@@ -52,8 +54,9 @@ const SoftSkillItem = (props: SoftSkill & BoxProps): JSX.Element => {
     )
 }
 
-const Icon = (props: { iconType: SoftSkillIcon } & SvgIconProps): JSX.Element => {
-    const { iconType, ...svgIconProps } = props
+const Icon: React.FC<{ iconType: SoftSkillIcon } & SvgIconProps> = (
+    { iconType, ...svgIconProps }
+) => {
     let Component: React.FC
     switch (iconType) {
         case (SoftSkillIcon.Devices):

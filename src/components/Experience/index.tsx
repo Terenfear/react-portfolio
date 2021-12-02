@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import TextImagePortfolioItem from '../PortfolioItem/TextImagePortfolioItem'
-import PortfolioPhoto from '../PortfolioPhoto/PortfolioPhoto'
+import TextImagePortfolioItem from '../PortfolioItems/TextImagePortfolioItem'
+import PortfolioPhoto from '../PortfolioPhoto'
 import { selectExperienceInfo } from './experienceSlice'
 import ExperienceTimeline from './ExperienceTimeline'
 
-const Experience = (): JSX.Element => {
+const Experience: React.FC = () => {
     const { title, photoUrl, photoAlt } = useSelector(selectExperienceInfo)
     return (
         <TextImagePortfolioItem

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import TitledGridPortfolioItem from '../PortfolioItem/TitledGridPortfolioItem'
+import TitledGridPortfolioItem from '../PortfolioItems/TitledGridPortfolioItem'
 import ContactOptionItem from './ContactOptionItem'
 import { ContactOption, selectContactOptions, selectContactTitle } from './contactSlice'
 
-const Contact = (): JSX.Element => {
+const Contact: React.FC = () => {
     const title = useSelector(selectContactTitle)
     const contacts = useSelector(...selectContactOptions)
     return <TitledGridPortfolioItem title={title}

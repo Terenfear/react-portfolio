@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import EmailIcon from '@mui/icons-material/Email'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import { Box, BoxProps, SvgIconProps, Typography, useTheme } from '@mui/material'
@@ -9,9 +10,10 @@ import {
 } from './ContactOptionItemStyles'
 import { ContactOption, ContactOptionIcon } from './contactSlice'
 
-const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
+const ContactOptionItem: React.FC<ContactOption & BoxProps> = (
+    { name, url, icon, ...boxProps }
+) => {
     const theme = useTheme()
-    const { name, url, icon, ...boxProps } = props
 
     const desktopMediaQuery = theme.breakpoints.isDesktopCSSMediaQuery
     const oldDMQ = boxProps.sx &&
@@ -81,19 +83,20 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
     )
 }
 
-const Icon = (props: { iconType?: ContactOptionIcon } & SvgIconProps): JSX.Element => {
-    const { iconType, ...svgIconProps } = props
-    let Component: React.FC
-    switch (iconType) {
-        case (ContactOptionIcon.LinkedIn):
-            Component = LinkedInIcon
-            break
-        default:
-            Component = EmailIcon
-    }
-    return <Component {...svgIconProps} />
+const Icon: React.FC<{ iconType?: ContactOptionIcon } & SvgIconProps> =
+    (props) => {
+        const { iconType, ...svgIconProps } = props
+        let Component: React.FC
+        switch (iconType) {
+            case (ContactOptionIcon.LinkedIn):
+                Component = LinkedInIcon
+                break
+            default:
+                Component = EmailIcon
+        }
+        return <Component {...svgIconProps} />
 
-}
+    }
 const MemoizedIcon = React.memo(Icon)
 
 export default ContactOptionItem

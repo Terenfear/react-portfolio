@@ -1,17 +1,18 @@
-import React, { PropsWithChildren, useEffect, useMemo } from 'react'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Box, Button, styled, Typography, useTheme } from '@mui/material'
-import { useSelector } from 'react-redux'
-import PortfolioItem, { SMALL_AREA, LARGE_AREA } from '../PortfolioItem/PortfolioItem'
-import { MultilineTextTypographiesList } from '../../utils/reactUtils'
-import { selectHome } from './homeSlice'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { useSelector } from 'react-redux'
+import { MultilineTextTypographiesList } from '../../utils/reactUtils'
+import PortfolioItem, { LARGE_AREA, SMALL_AREA } from '../PortfolioItems/PortfolioItem'
+import { selectHome } from './homeSlice'
 
 export interface HomeProps {
     onLearnMoreClick: () => void,
     onContactClicked: () => void
 }
 
-const Home = ({ onLearnMoreClick, onContactClicked }: HomeProps): JSX.Element => {
+const Home: React.FC<HomeProps> = ({ onLearnMoreClick, onContactClicked }) => {
     const theme = useTheme()
     const { title, subtitle, videoUrl } = useSelector(selectHome)
 

@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from 'react'
 import { SwipeableDrawer } from '@mui/material'
-import InnerNavBar from './InnerNavBar'
-import { NavBarProps } from './NavBar'
-import NavBarControlButton from './NavBarControlButton'
+import React, { useCallback, useState } from 'react'
+import { NavBarProps } from '.'
 import GitHubButton from '../GitHubButton'
+import InnerNavBar from './InnerNavBar'
+import NavBarControlButton from './NavBarControlButton'
 
 type DrawerState = {
     isOpen: boolean,
     isRefocusEnabled: boolean
 }
-const MobileNavBar = (props: NavBarProps): JSX.Element => {
+const MobileNavBar: React.FC<NavBarProps> = (props) => {
     const [drawerState, setDrawerState] = useState<DrawerState>({ isOpen: false, isRefocusEnabled: true })
     const realOnItemClick = props.onItemClick
     const onItemClick: typeof realOnItemClick = useCallback(

@@ -32,18 +32,21 @@ export const selectIsLoading = (rootState: RootState): boolean =>
     rootState.app.isLoading
 
 // TODO(Nov 26, 2021): cache result?
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const appStarted = (): AppThunk => async (dispatch) => {
     dispatch(actions.appLoadingStarted())
-    const appData = (await backendApi.fetchAppData())[0] as RootState
-    batch(() => {
-        dispatch(actions.appLoadingFinished())
-        dispatch(homeActions.updated(appData.home))
-        dispatch(aboutMeActions.updated(appData.aboutMe))
-        dispatch(hardSkillsActions.updated(appData.hardSkills))
-        dispatch(softSkillsActions.updated(appData.softSkills))
-        dispatch(experienceActions.updated(appData.experience))
-        dispatch(contactActions.updated(appData.contact))
-    })
+    const appData = await backendApi.fetchAppData()
+    if (appData !== undefined) {
+        batch(() => {
+            dispatch(actions.appLoadingFinished())
+            dispatch(homeActions.updated(appData.home))
+            dispatch(aboutMeActions.updated(appData.aboutMe))
+            dispatch(hardSkillsActions.updated(appData.hardSkills))
+            dispatch(softSkillsActions.updated(appData.softSkills))
+            dispatch(experienceActions.updated(appData.experience))
+            dispatch(contactActions.updated(appData.contact))
+        })
+    }
 }
 
 export default { [appSliceName]: reducer }

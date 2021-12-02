@@ -1,15 +1,16 @@
-import React, { useMemo } from 'react'
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Button, ButtonProps, Stack, styled } from '@mui/material'
-import { NavBarItem, NavBarItemUtils } from './NavBarItem'
 import { Globals, Property } from 'csstype'
-import { NavBarProps } from './NavBar'
+import React, { useMemo } from 'react'
+import { NavBarProps } from '.'
+import { NavBarItem, NavBarItemUtils } from './NavBarItem'
 
 export interface InnerNavBarProps extends NavBarProps {
     direction: Exclude<Property.FlexDirection, Globals>,
     shouldExpand: boolean
 }
 
-const InnerNavBar = (props: InnerNavBarProps): JSX.Element => {
+const InnerNavBar: React.FC<InnerNavBarProps> = (props) => {
     const { onItemClick, selectedItem, direction, shouldExpand } = props
     const nonImportantNavBarItems = useMemo(() =>
         NavBarItemUtils.asArray().filter(i => i !== NavBarItem.Contact), [])
@@ -57,7 +58,7 @@ const StyledButton = styled(Button)({
     flexShrink: 0
 })
 
-const NavButton = (props: ButtonProps & { selected: boolean }): JSX.Element => (
+const NavButton: React.FC<ButtonProps & { selected: boolean }> = (props) => (
     <StyledButton variant='text'
         {...props}
         sx={

@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import TextImagePortfolioItem from '../PortfolioItem/TextImagePortfolioItem'
 import { MultilineTextTypographiesList } from '../../utils/reactUtils'
+import TextImagePortfolioItem from '../PortfolioItems/TextImagePortfolioItem'
 import HardSkillItemList from './HardSkillItemList'
 import { selectHardSkillInfo } from './hardSkillsSlice'
 
-const HardSkills = (): JSX.Element => {
+const HardSkills: React.FC = () => {
     const { info, title } = useSelector(selectHardSkillInfo)
     return (
         <TextImagePortfolioItem

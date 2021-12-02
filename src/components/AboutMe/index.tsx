@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-key */
 import { Typography } from '@mui/material'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import TextImagePortfolioItem from '../PortfolioItem/TextImagePortfolioItem'
-import PortfolioPhoto from '../PortfolioPhoto/PortfolioPhoto'
 import { MultilineTextTypographiesList } from '../../utils/reactUtils'
+import TextImagePortfolioItem from '../PortfolioItems/TextImagePortfolioItem'
+import PortfolioPhoto from '../PortfolioPhoto'
 import { selectAboutMe } from './aboutMeSlice'
 
-const AboutMe = (): JSX.Element => {
+const AboutMe: React.FC = () => {
     const { profession, details, photoUrl, photoAlt } = useSelector(selectAboutMe)
     return (
         <TextImagePortfolioItem

@@ -1,8 +1,8 @@
 import { Box, BoxProps, Typography, useTheme } from '@mui/material'
+import { Property } from 'csstype'
 import React from 'react'
 import { AnyJSXElementConstructor, calculateFlexBasisExpr } from '../../utils/reactUtils'
 import SimplePortfolioItem from './SimplePortfolioItem'
-import { Property } from 'csstype'
 
 interface TitledGridPortfolioItemProps<T> {
     title: string,

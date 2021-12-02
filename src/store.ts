@@ -1,6 +1,7 @@
 import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import rootReducer from './rootReducer'
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default function configureAppStore() {
     const store = configureStore({
         reducer: rootReducer

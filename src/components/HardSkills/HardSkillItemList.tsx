@@ -1,13 +1,13 @@
-import { Box, BoxProps, Theme, useTheme } from '@mui/material'
+import { Box, BoxProps, useTheme } from '@mui/material'
 import React from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useSelector } from 'react-redux'
 import { calculateFlexBasisExpr } from '../../utils/reactUtils'
 import useIsDesktop from '../../utils/useIsDesktop'
 import HardSkillItem from './HardSkillItem'
-import { selectHardSkillValues, HardSkill } from './hardSkillsSlice'
+import { HardSkill, selectHardSkillValues } from './hardSkillsSlice'
 
-const HardSkillItemList = (props: BoxProps): JSX.Element => {
+const HardSkillItemList: React.FC<BoxProps> = (props) => {
     const theme = useTheme()
     const skills = useSelector(...selectHardSkillValues)
     const isDesktop = useIsDesktop()
@@ -38,8 +38,14 @@ const HardSkillItemList = (props: BoxProps): JSX.Element => {
         </Box>
     )
 }
-const GridItem = (props: { skill: HardSkill, showProgress: boolean } & BoxProps): JSX.Element => {
-    const { skill: { name, familiarityPercents }, showProgress, ...boxProps } = props
+
+interface GridItemProps extends BoxProps {
+    skill: HardSkill,
+    showProgress: boolean
+}
+const GridItem: React.FC<GridItemProps> = (
+    { skill: { name, familiarityPercents }, showProgress, ...boxProps }
+) => {
     return (
         <Box {...boxProps}>
             <HardSkillItem

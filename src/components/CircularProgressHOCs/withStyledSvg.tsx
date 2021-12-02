@@ -35,4 +35,7 @@ const withStyledSvg =
             return WithStyledSvg
         }
 
+export const CircularProgressWithRoundCaps =
+    withStyledSvg({ strokeLinecap: 'round' })(CircularProgress)
+
 export default withStyledSvg

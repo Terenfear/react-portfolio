@@ -1,9 +1,9 @@
 import React from 'react'
 import PortfolioItem, { ALL_CONTENT_COLUMNS, PortfolioItemProps } from './PortfolioItem'
 
-const SimplePortfolioItem = (
-    props: React.PropsWithChildren<Omit<PortfolioItemProps, 'startWithLargeArea'>>
-): JSX.Element => {
+const SimplePortfolioItem: React.FC<
+    React.PropsWithChildren<Omit<PortfolioItemProps, 'startWithLargeArea'>>
+> = (props) => {
     return (
         <PortfolioItem {...props}>
             <div style={{

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const getDynamicProperty =
     <K extends keyof any, T extends Record<K, unknown>>
         (obj: T, key: K): T[K] => obj[key]

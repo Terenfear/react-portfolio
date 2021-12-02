@@ -1,14 +1,14 @@
-import React, { useCallback, useState, useEffect, useMemo } from 'react'
-import NavBar from '../NavBar/NavBar'
-import { NavBarItem } from '../NavBar/NavBarItem'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { appStarted, selectIsLoading } from './appSlice'
-import AppLoading from './AppLoading'
 import { AppDispatch } from '../../store'
-import { useNavRefsMap } from './hooks'
+import NavBar from '../NavBar'
+import { NavBarItem } from '../NavBar/NavBarItem'
 import AppBody from './AppBody'
+import AppLoading from './AppLoading'
+import { appStarted, selectIsLoading } from './appSlice'
+import { useNavRefsMap } from './hooks'
 
-const App = (): JSX.Element => {
+const App: React.FC = () => {
     const isAppLoading = useSelector(selectIsLoading)
     const [visibleItemSet, setVisibleItemSet] = useState<Set<NavBarItem>>(new Set())
     const updateVisibleItemSet = useCallback(

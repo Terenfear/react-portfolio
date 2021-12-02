@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import ExperienceItem from './ExperienceItem'
 import { selectExperiencePeriods } from './experienceSlice'
 
-const ExperienceTimeline = (props: BoxProps): JSX.Element => {
+const ExperienceTimeline: React.FC<BoxProps> = (props) => {
     const periods = useSelector(...selectExperiencePeriods)
     return (
         <Box {...props}>
