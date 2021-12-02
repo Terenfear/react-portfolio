@@ -6,6 +6,7 @@ import {
     useTheme
 } from '@mui/material'
 import React, { useMemo } from 'react'
+import { v4 as uuid4 } from 'uuid'
 import { getDisplayName } from '../../utils/reactUtils'
 
 const withLabel =
@@ -13,14 +14,14 @@ const withLabel =
         (CircularProgressDelegate: typeof CircularProgress): typeof CircularProgress => {
             const WithLabel = (props: CircularProgressProps): JSX.Element => {
                 const theme = useTheme()
+                const id = useMemo(() => uuid4(), [])
                 const textOffset = useMemo(
                     () => calcTextOffset(props.thickness),
                     [props.thickness]
                 )
-                // TODO(Nov 02, 2021): make label accessible
                 return (
                     <Box position='relative'>
-                        <CircularProgressDelegate {...props} />
+                        <CircularProgressDelegate {...props} id={id} />
                         <Box sx={{
                             position: 'absolute',
                             ['--textOffset' as string]: textOffset,
@@ -34,6 +35,7 @@ const withLabel =
                         }}>
                             <Typography
                                 variant='caption'
+                                aria-describedby={id}
                                 sx={{
                                     ...theme.typography.caption,
                                     textAlign: 'center',

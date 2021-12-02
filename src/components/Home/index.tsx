@@ -14,7 +14,7 @@ export interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ onLearnMoreClick, onContactClicked }) => {
     const theme = useTheme()
-    const { title, subtitle, videoUrl } = useSelector(selectHome)
+    const { title, subtitle, videoUrl, videoAlt } = useSelector(selectHome)
 
     return (
         <PortfolioItem disableVerticalPadding={true}>
@@ -58,13 +58,18 @@ const Home: React.FC<HomeProps> = ({ onLearnMoreClick, onContactClicked }) => {
                     clipPath: 'ellipse(farthest-side 130% at 100% 50%)'
                 }
             }}>
-                <HomeVideo videoUrl={videoUrl} />
+                <HomeVideo videoUrl={videoUrl}
+                    videoAlt={videoAlt} />
             </Box>
         </PortfolioItem >
     )
 }
 
-const HomeVideo = React.memo(({ videoUrl }: { videoUrl: string }) => {
+type HomeVideoProps = {
+    videoUrl: string
+    videoAlt: string
+}
+const HomeVideo = React.memo(({ videoUrl, videoAlt }: HomeVideoProps) => {
     const [setRef, inView, entry] = useInView({ threshold: 0.1 })
     useEffect(() => {
         const element = entry?.target
@@ -73,7 +78,9 @@ const HomeVideo = React.memo(({ videoUrl }: { videoUrl: string }) => {
         }
     }, [inView, entry])
     return (
-        <StyledVideo ref={setRef} loop muted>
+        <StyledVideo ref={setRef}
+            aria-label={videoAlt}
+            loop muted>
             <source src={videoUrl} type='video/mp4' />
             Your browser does not support the video tag
         </StyledVideo>

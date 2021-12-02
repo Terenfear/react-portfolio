@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Box, Link, styled, Typography } from '@mui/material'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ExperiencePeriod } from './experienceSlice'
+import { v4 as uuid4 } from 'uuid'
 import { ReactComponent as TimelineDot } from './timeline-dot.svg'
 
 const ExperienceItem: React.FC<ExperiencePeriod & { isLast: boolean }> =
     (props) => {
         const { period, title, link, description, isLast } = props
+        const dateElementId = useMemo(() => uuid4(), [])
         return (
             <Box sx={{
                 display: 'grid',
@@ -19,16 +21,18 @@ const ExperienceItem: React.FC<ExperiencePeriod & { isLast: boolean }> =
                 columnGap: (t) => t.spacing(2)
             }}>
                 <TimelineDot style={{ gridArea: DOT }} />
-                <Typography sx={{
-                    gridArea: PERIOD,
-                    color: 'primary.main'
-                }}>
+                <Typography id={dateElementId}
+                    sx={{
+                        gridArea: PERIOD,
+                        color: 'primary.main'
+                    }}>
                     {`${period.from} - ${period.to}`}
                 </Typography>
                 <Connector style={{ gridArea: CONNECTOR }} />
                 <Box style={{ gridArea: DESCRIPTION }}
                     mb={isLast ? 0 : 3}
-                    mt={1}>
+                    mt={1}
+                    aria-describedby={dateElementId}>
                     {link ?
                         <Link variant='h4'
                             color='text.secondary'

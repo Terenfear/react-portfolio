@@ -4,7 +4,8 @@ import React from 'react'
 import GitHubButton from './GitHubButton'
 
 const Credits: React.FC = () => (
-    <Box p={1}
+    <Box component='footer'
+        p={1}
         textAlign='end'>
         <Typography variant='caption'>
             Based on original design by{' '}

@@ -39,11 +39,12 @@ const AppBody: React.FC<AppBodyProps> = (
         [onLearnMoreClick, onContactClicked]
     )
     return (
-        <Box sx={{
-            ['& > *:nth-child(odd)']: {
-                bgcolor: 'background.paper'
-            }
-        }}>
+        <Box component='main'
+            sx={{
+                ['& > *:nth-child(odd)']: {
+                    bgcolor: 'background.paper'
+                }
+            }}>
             {
                 Object.entries(navBarItemToComponent)
                     .map(([item, component]) => {
