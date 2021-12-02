@@ -1,13 +1,14 @@
-type DistributiveRecordKey<T> = T extends Record<infer U, unknown> ? U : never
-
 export const getDynamicProperty =
-    <T extends Record<string, unknown>, U extends DistributiveRecordKey<T>>
-        (obj: T, key: U): T[U] => obj[key]
+    <K extends keyof any, T extends Record<K, unknown>>
+        (obj: T, key: K): T[K] => obj[key]
 
-export const asObjectOrUndefined = (obj: unknown) => {
-    if (typeof obj === 'object' && obj !== null) {
+export const asRecordOrUndefined = (obj: unknown): Record<keyof any, unknown> | undefined => {
+    if (isRecord(obj)) {
         return obj
     } else {
         return undefined
     }
 }
+
+export const isRecord = (obj: unknown): obj is Record<keyof any, unknown> =>
+    typeof obj === 'object' && obj !== null

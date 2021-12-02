@@ -4,19 +4,17 @@ import ForumIcon from '@mui/icons-material/Forum'
 import TranslateIcon from '@mui/icons-material/Translate'
 import React from 'react'
 import { SoftSkill, SoftSkillIcon } from './softSkillsSlice'
-import { asObjectOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
+import { asRecordOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
 
 const SoftSkillItem = (props: SoftSkill & BoxProps): JSX.Element => {
     const theme = useTheme()
     const { name, description, icon, ...boxProps } = props
 
     const desktopMediaQuery = theme.breakpoints.isDesktopCSSMediaQuery
-    const oldDMQ = boxProps.sx ?
-        asObjectOrUndefined(
+    const oldDMQ = boxProps.sx &&
+        asRecordOrUndefined(
             getDynamicProperty(boxProps.sx, desktopMediaQuery)
-        ) :
-        undefined
-
+        )
     return (
         <Box {...boxProps}
             sx={{
@@ -28,6 +26,7 @@ const SoftSkillItem = (props: SoftSkill & BoxProps): JSX.Element => {
                 [desktopMediaQuery]: {
                     ...oldDMQ,
                     p: 4,
+                    minWidth: '350px'
                 }
             }}>
             <Box sx={{

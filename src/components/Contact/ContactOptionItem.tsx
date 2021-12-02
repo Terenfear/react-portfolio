@@ -1,9 +1,8 @@
 import EmailIcon from '@mui/icons-material/Email'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import { Box, BoxProps, SvgIconProps, Typography, useTheme } from '@mui/material'
-import { alpha } from '@mui/system'
 import React, { useCallback } from 'react'
-import { asObjectOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
+import { asRecordOrUndefined, getDynamicProperty } from '../../utils/tsUtils'
 import {
     BUTTON_CLASS, HOVER_EFFECT_STYLE, HOVER_SELECTORS,
     HOVER_TRANSITION_DURATION_MS, PULSE_ANIMATION, PULSE_EFFECT_STYLE, TEXT_LINK_CLASS
@@ -15,11 +14,10 @@ const ContactOptionItem = (props: ContactOption & BoxProps): JSX.Element => {
     const { name, url, icon, ...boxProps } = props
 
     const desktopMediaQuery = theme.breakpoints.isDesktopCSSMediaQuery
-    const oldDMQ = boxProps.sx ?
-        asObjectOrUndefined(
+    const oldDMQ = boxProps.sx &&
+        asRecordOrUndefined(
             getDynamicProperty(boxProps.sx, desktopMediaQuery)
-        ) :
-        undefined
+        )
 
     const openLink = useCallback((e: { type?: string, key?: string }) => {
         if (e.type === 'click' || e.key === 'Enter') {
