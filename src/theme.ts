@@ -22,8 +22,8 @@ const baseTheme = createTheme({
             color: palette.text.secondary
         }
         return {
-            htmlFontSize: 20,
-            fontSize: 20,
+            htmlFontSize: 18,
+            fontSize: 18,
             h1: {
                 ...hStyle,
                 fontSize: '3.75rem'

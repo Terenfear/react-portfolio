@@ -4,6 +4,7 @@ import React, { useMemo } from 'react'
 import { ExperiencePeriod } from './experienceSlice'
 import { v4 as uuid4 } from 'uuid'
 import { ReactComponent as TimelineDot } from './timeline-dot.svg'
+import { MultilineTextTypographiesList } from '../../utils/reactUtils'
 
 const ExperienceItem: React.FC<ExperiencePeriod & { isLast: boolean }> =
     (props) => {
@@ -45,7 +46,8 @@ const ExperienceItem: React.FC<ExperiencePeriod & { isLast: boolean }> =
                         </Link> :
                         <Typography variant='h4' mb={2}>{title}</Typography>
                     }
-                    <Typography variant='subtitle1'>{description}</Typography>
+                    <MultilineTextTypographiesList variant='subtitle1'
+                        multilineText={description} />
                 </Box>
             </Box>
         )
