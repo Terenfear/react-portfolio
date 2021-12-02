@@ -1,7 +1,7 @@
 /* eslint-disable no-trailing-spaces */
-import { Box, IconButton, Link, Typography } from '@mui/material'
-import GitHubIcon from '@mui/icons-material/GitHub'
+import { Box, Link, Typography } from '@mui/material'
 import React from 'react'
+import GitHubButton from './GitHubButton'
 
 const Credits = (): JSX.Element => (
     <Box p={1}
@@ -15,11 +15,9 @@ const Credits = (): JSX.Element => (
         </Typography>
         <div>
             <Typography variant='caption'>
-                Developed by Terenfear&nbsp;
+                Developed by Pavel Kazlovich&nbsp;
             </Typography>
-            <IconButton component='a' href='https://github.com/Terenfear/react-portfolio'>
-                <GitHubIcon />
-            </IconButton>
+            <GitHubButton />
         </div>
     </Box>
 )

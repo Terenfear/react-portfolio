@@ -3,27 +3,28 @@ import { SwipeableDrawer } from '@mui/material'
 import InnerNavBar from './InnerNavBar'
 import { NavBarProps } from './NavBar'
 import NavBarControlButton from './NavBarControlButton'
+import GitHubButton from '../GitHubButton'
 
 type DrawerState = {
     isOpen: boolean,
     isRefocusEnabled: boolean
 }
 const MobileNavBar = (props: NavBarProps): JSX.Element => {
-    const [drawerState, setDrawerState] = useState<DrawerState>({isOpen: false, isRefocusEnabled: true})
+    const [drawerState, setDrawerState] = useState<DrawerState>({ isOpen: false, isRefocusEnabled: true })
     const realOnItemClick = props.onItemClick
     const onItemClick: typeof realOnItemClick = useCallback(
         (item) => {
             realOnItemClick(item)
             // we disable refocusing because it interferes with scrolling
-            setDrawerState({isOpen: false, isRefocusEnabled: false})
+            setDrawerState({ isOpen: false, isRefocusEnabled: false })
         },
         [realOnItemClick]
     )
     const onManualOpen = useCallback(
-        () => setDrawerState({isOpen: true, isRefocusEnabled: true}), []
+        () => setDrawerState({ isOpen: true, isRefocusEnabled: true }), []
     )
     const onManualClose = useCallback(
-        () => setDrawerState({isOpen: false, isRefocusEnabled: true}), []
+        () => setDrawerState({ isOpen: false, isRefocusEnabled: true }), []
     )
     return (
         <>
@@ -55,6 +56,13 @@ const MobileNavBar = (props: NavBarProps): JSX.Element => {
                         p: 2
                     }
                 }}>
+                <div style={{
+                    position: 'absolute',
+                    bottom: 20,
+                    right: 20
+                }}>
+                    <GitHubButton />
+                </div>
                 <InnerNavBar {...props}
                     onItemClick={onItemClick}
                     direction='column'

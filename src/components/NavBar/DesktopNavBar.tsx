@@ -1,5 +1,6 @@
+import { AppBar, Slide, Toolbar, useScrollTrigger } from '@mui/material'
 import React from 'react'
-import { AppBar, Slide, styled, Toolbar, useScrollTrigger } from '@mui/material'
+import GitHubButton from '../GitHubButton'
 import InnerNavBar from './InnerNavBar'
 import { NavBarProps } from './NavBar'
 
@@ -9,18 +10,16 @@ const DesktopNavBar = (props: NavBarProps): JSX.Element => {
         <>
             <Slide appear={false} in={!scrolledDown}>
                 <AppBar position='fixed'>
-                    <Toolbar>
+                    <Toolbar sx={{ gap: 3 }}>
+                        <GitHubButton />
                         <InnerNavBar {...props}
                             direction='row'
                             shouldExpand={true} />
                     </Toolbar>
                 </AppBar>
             </Slide>
-            <ToolbarOffset />
         </>
     )
 }
-
-const ToolbarOffset = styled('div')(({ theme }) => theme.mixins.toolbar)
 
 export default DesktopNavBar

@@ -11,7 +11,7 @@ const HardSkillItemList = (props: BoxProps): JSX.Element => {
     const theme = useTheme()
     const skills = useSelector(...selectHardSkillValues)
     const isDesktop = useIsDesktop()
-    const { ref, inView } = useInView({ threshold: 0.33 })
+    const { ref, inView } = useInView({ threshold: 0.33, triggerOnce: true })
 
     const columnsCount = isDesktop ? 2
         : skills.length >= SKILL_COUNT_BREAKPOINT ? 3 : 2
