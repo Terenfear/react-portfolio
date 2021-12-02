@@ -6,7 +6,10 @@ const SimplePortfolioItem = (
 ): JSX.Element => {
     return (
         <PortfolioItem {...props}>
-            <div style={{ gridColumn: ALL_CONTENT_COLUMNS }}>
+            <div style={{
+                gridColumn: ALL_CONTENT_COLUMNS,
+                gridRow: '1/-1'
+            }}>
                 {props.children}
             </div>
         </PortfolioItem>

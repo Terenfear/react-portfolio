@@ -1,12 +1,13 @@
 import { Box, useTheme } from '@mui/material'
-import React, { useMemo } from 'react'
+import React, { forwardRef, PropsWithChildren, useMemo } from 'react'
 
 export interface PortfolioItemProps {
     startWithLargeArea?: boolean,
     disableVerticalPadding?: boolean
 }
 
-const PortfolioItem = (props: React.PropsWithChildren<PortfolioItemProps>): JSX.Element => {
+// eslint-disable-next-line react/display-name
+const PortfolioItem = forwardRef<unknown, PropsWithChildren<PortfolioItemProps>>((props, ref): JSX.Element => {
     const { startWithLargeArea = true, disableVerticalPadding = false, children } = props
     const theme = useTheme()
     const { areaTemplate, columnTemplate } = useMemo(
@@ -15,8 +16,10 @@ const PortfolioItem = (props: React.PropsWithChildren<PortfolioItemProps>): JSX.
     )
     return (
         <Box component='section'
+            ref={ref}
             sx={{
                 minHeight: 'inherit',
+                overflowX: 'hidden',
                 display: 'grid',
                 alignItems: 'center',
                 gridTemplateAreas: `
@@ -35,7 +38,7 @@ const PortfolioItem = (props: React.PropsWithChildren<PortfolioItemProps>): JSX.
             {children}
         </Box>
     )
-}
+})
 
 const getContentTemplates = (startWithLargeArea: boolean, contentGapPx: string): { areaTemplate: string, columnTemplate: string } => {
     const areas = [LARGE_AREA, '.', SMALL_AREA]
