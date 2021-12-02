@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { PropsOf } from './emotionHelper'
 import { hashCode } from './hashUtils'
 
-type AnyJSXElementConstructor = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+export type AnyJSXElementConstructor<P = any> = keyof JSX.IntrinsicElements | React.JSXElementConstructor<P>
 
 type MultilineTextComponentListProps = {
     multilineText: string,

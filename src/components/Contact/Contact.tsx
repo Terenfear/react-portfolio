@@ -1,41 +1,20 @@
 import React from 'react'
-import { Box, Typography, useTheme } from '@mui/material'
 import { useSelector } from 'react-redux'
-import { calculateFlexBasisExpr } from '../../utils/reactUtils'
-import SimplePortfolioItem from '../PortfolioItem/SimplePortfolioItem'
+import TitledGridPortfolioItem from '../PortfolioItem/TitledGridPortfolioItem'
 import ContactOptionItem from './ContactOptionItem'
-import { selectContactOptions, selectContactTitle } from './contactSlice'
+import { ContactOption, selectContactOptions, selectContactTitle } from './contactSlice'
 
 const Contact = (): JSX.Element => {
-    const theme = useTheme()
     const title = useSelector(selectContactTitle)
-    const skills = useSelector(...selectContactOptions)
-    const itemGap = theme.spacing(8)
-    const itemGapNumber = Number(itemGap.replace('px', '')) || 0
-    const flexBasisExpr = calculateFlexBasisExpr(IDEAL_COLUMN_COUNT, itemGapNumber)
-    return (
-        <SimplePortfolioItem>
-            <Typography variant='h3' mb={3} textAlign='center'>{title}</Typography>
-            <Box sx={{
-                display: 'flex',
-                flexFlow: 'row wrap',
-                justifyContent: 'center',
-                gap: itemGap
-            }}>
-                {skills.map(s =>
-                    <ContactOptionItem {...s}
-                        key={s.name}
-                        sx={{
-                            [theme.breakpoints.isDesktopCSSMediaQuery]: {
-                                flex: `0 1 ${flexBasisExpr}`
-                            }
-                        }} />
-                )}
-            </Box>
-        </SimplePortfolioItem>
-    )
+    const contacts = useSelector(...selectContactOptions)
+    return <TitledGridPortfolioItem title={title}
+        items={contacts}
+        gridItemComponent={ContactOptionItem}
+        keySelector={keySelector}
+        maxColumnCount={3}
+        itemFlexGrow={0} />
 }
 
-const IDEAL_COLUMN_COUNT = 3
+const keySelector = (option: ContactOption): string => option.name
 
 export default Contact
