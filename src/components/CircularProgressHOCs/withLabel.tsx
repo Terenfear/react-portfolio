@@ -23,11 +23,11 @@ const withLabel =
                         <CircularProgressDelegate {...props} />
                         <Box sx={{
                             position: 'absolute',
-                            [textOffsetKey as string]: textOffset,
-                            top: textOffsetVar,
-                            right: textOffsetVar,
-                            bottom: textOffsetVar,
-                            left: textOffsetVar,
+                            ['--textOffset' as string]: textOffset,
+                            top: 'var(--textOffset)',
+                            right: 'var(--textOffset)',
+                            bottom: 'var(--textOffset)',
+                            left: 'var(--textOffset)',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
@@ -38,11 +38,10 @@ const withLabel =
                                     ...theme.typography.caption,
                                     textAlign: 'center',
                                     color: theme.typography.h1.color,
-                                    fontSize: '0.8rem',
+                                    fontSize: 'clamp(0.2rem, 0.2rem + 2vw, 1.25rem)',
                                     lineHeight: 1.2,
-                                    [theme.breakpoints.up('sm')]: {
-                                        fontSize: '1.25rem',
-                                        lineHeight: 1.8,
+                                    [theme.breakpoints.isDesktopCSSMediaQuery]: {
+                                        fontSize: 'clamp(0.2rem, 0.2rem + 1vw, 1.25rem)',
                                     }
                                 }}>
                                 {label}
@@ -55,9 +54,6 @@ const withLabel =
             WithLabel.displayName = `WithLabel(${getDisplayName(CircularProgressDelegate as any)})`
             return WithLabel
         }
-
-const textOffsetKey = '--textOffset'
-const textOffsetVar = `var(${textOffsetKey})`
 
 // TODO(Nov 04, 2021): Is all that really needed?
 const calcTextOffset = (progressThickness = 3.6): string => {
