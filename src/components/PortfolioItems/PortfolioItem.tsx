@@ -19,7 +19,7 @@ const PortfolioItem = forwardRef<unknown, PropsWithChildren<PortfolioItemProps>>
             ref={ref}
             sx={{
                 minHeight: 'inherit',
-                overflowX: 'hidden',
+                overflow: 'hidden',
                 display: 'grid',
                 alignItems: 'center',
                 gridTemplateAreas: `
@@ -28,6 +28,7 @@ const PortfolioItem = forwardRef<unknown, PropsWithChildren<PortfolioItemProps>>
             `,
                 gridTemplateColumns: 'minmax(1rem, 5fr) 1rem minmax(auto, 90fr) 1rem minmax(1rem, 5fr)',
                 rowGap: 4,
+                // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
                 ...(!disableVerticalPadding && { py: (t) => t.sizes.itemPaddingVertical }),
                 [theme.breakpoints.isDesktopCSSMediaQuery]: {
                     rowGap: 0,

@@ -21,7 +21,10 @@ const ExperienceItem: React.FC<ExperiencePeriod & { isLast: boolean }> =
                 alignItems: 'center',
                 columnGap: (t) => t.spacing(2)
             }}>
-                <TimelineDot style={{ gridArea: DOT }} />
+                <TimelineDot style={{
+                    width: '100%',
+                    gridArea: DOT
+                }} />
                 <Typography id={dateElementId}
                     sx={{
                         gridArea: PERIOD,
